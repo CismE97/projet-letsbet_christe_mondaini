@@ -1,19 +1,22 @@
 <template>
 <div class="container">
 <div class="row justify-content-center">
-  <div class="col-sm-8 col-md-6">
+  <div class="col-md-8 col-lg-6">
   <div class="card">
-    <form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Username</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username">
+    <div class="card-header bg-primary">
+      <h4 class="card-title">Connexion</h4>
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="form-group">
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Adresse E-mail">
+        </div>
+        <div class="form-group">
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe">
+        </div>
+        <button type="submit" class="btn btn-outline-primary">Connexion</button>
+      </form>
   </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
   </div>
 </div>
 </div>
@@ -34,5 +37,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  
+  button{
+    width: 100%;
+  }
+  .form-group{
+    margin-bottom: 30px;
+  }
 </style>
