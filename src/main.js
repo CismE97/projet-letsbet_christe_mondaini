@@ -5,6 +5,7 @@ import App from './App';
 import router from './router';
 import 'bootstrap.native';
 import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'bootstrap-material-design/dist/css/bootstrap-material-design.min.css';
 
 Vue.config.productionTip = false;
 
