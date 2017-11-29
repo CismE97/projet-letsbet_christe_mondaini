@@ -9,7 +9,7 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: '/projet-letsbet_christe_mondaini/',
     proxyTable: {},
 
     // Various Dev Server settings
