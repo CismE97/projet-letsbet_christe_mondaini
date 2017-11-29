@@ -1,0 +1,47 @@
+# Force toutes les fins de ligne à être \ n
+* texte eol = lf
+
+################################################## ##########
+# git peut corrompre les fichiers binaires s'ils ne sont pas en binaire.
+################################################## ##########
+
+# Les documents de bureau Apple sont en fait des dossiers, alors les traiter comme des fichiers binaires.
+* .numbers binary
+* .pages binaire
+* .keynote binaire
+
+# Fichiers d'image
+* .png binaire
+* .jpg binaire
+* binaire .jpeg
+* .gif binaire
+* binaire .webp
+* .ico binaire
+
+# Fichiers vidéo et audio
+* .mov binaire
+* .mp4 binaire
+* .mp3 binaire
+* .flv binaire
+* .ogg binaire
+
+# Formats de compression
+* .gz binaire
+* .bz2 binaire
+* .z binaire
+* .zip binaire
+
+# Polices Web
+* .ttf binaire
+* .eot binaire
+* binaire .woff
+* .otf binaire
+
+# Autre
+* .fla binaire
+* .swf binaire
+* .pdf binaire
+
+################################################## ##########
+# Fin des paramètres binaires
+################################################## ##########
