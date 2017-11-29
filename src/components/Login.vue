@@ -14,19 +14,19 @@
         <div class="form-group">
           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Mot de passe">
         </div>
-        <button type="submit" class="btn btn-outline-primary">Connexion</button>
+        <button type="submit" class="btn btn-outline-info">Connexion</button>
+        <router-link :to="{ name: 'SignUp'}"  class="btn btn-info">S'inscrire</router-link>
       </form>
   </div>
   </div>
 </div>
 </div>
-
 </div>
 </template>
 
 <script>
 export default {
-    name: 'Home',
+    name: 'Login',
     data() {
         return {
             msg: 'Bonjour'
@@ -37,9 +37,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  button{
-    width: 100%;
-  }
   .form-group{
     margin-bottom: 30px;
   }
