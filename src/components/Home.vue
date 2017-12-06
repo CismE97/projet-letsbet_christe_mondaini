@@ -15,15 +15,56 @@
                 </div>
             </div>
         </div>
-        <div class="row stats">
-             <div class="col">
-                <div class="row text-left">
-                    <div class="col-8">
-                        <h2>Classement</h2>
-                    </div>
-                    <div class="col-4">
-                        <h2>Mes statistiques</h2>
-                    </div>
+        <div class="stats">
+            <div class="row text-left">
+                <div class="col-md-8">
+                    <h2>Classement</h2>
+                </div>
+                <div class="col-md-4">
+                    <h2>Mes stats</h2>
+                </div>
+            </div>
+
+            <div class="row text-left">
+                <div class="col-md-8">
+                    
+                    <table class="table classement">
+                        <tr>
+                            <th>N°</th>
+                            <th>Joueur</th>
+                            <th>Points</th>
+                        </tr>
+                        <tr >
+                            <td>5</td>
+                            <td>Pseudo</td>
+                            <td>4000</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Pseudo</td>
+                            <td>3000</td>
+                        </tr>
+                        <tr class="classement-me">
+                            <td>7</td>
+                            <td>Me</td>
+                            <td>2000</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Pseudo</td>
+                            <td>1000</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>Pseudo</td>
+                            <td>500</td>
+                        </tr>
+                    </table>
+
+
+                </div>
+                <div class="col-md-4">
+                    Graphe
                 </div>
             </div>
         </div>
@@ -44,12 +85,18 @@
 export default {
     name: 'Home',
     data() {
-        return {
-        };
+        return {};
     }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+th, td{
+    padding: 10px;
+}
+
+.classement-me{
+    background-color: #81C784;
+}
 </style>
