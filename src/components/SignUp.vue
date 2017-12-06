@@ -33,7 +33,7 @@
           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirmer le mot de passe">
         </div>
         <button type="submit" class="btn btn-outline-info">S'inscrire</button>
-        <router-link :to="{ name: 'Login'}" class="btn btn-info">J'ai déjà un comte</router-link>
+        <router-link :to="{ name: 'Login'}" class="btn btn-info">J'ai déjà un compte</router-link>
       </form>
   </div>
   </div>
