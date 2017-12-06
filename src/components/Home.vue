@@ -13,17 +13,8 @@
         </div>
         <div class="stats">
             <div class="row text-left">
-                <div class="col-md-8">
+                <div class="col-md-8 col-12">
                     <h2>Classement</h2>
-                </div>
-                <div class="col-md-4">
-                    <h2>Mes stats</h2>
-                </div>
-            </div>
-
-            <div class="row text-left">
-                <div class="col-md-8">
-                    
                     <table class="table classement">
                         <tr>
                             <th>N°</th>
@@ -59,7 +50,8 @@
 
 
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-12">
+                    <h2>Mes stats</h2>
                     <canvas id="chart"></canvas>
                 </div>
             </div>
