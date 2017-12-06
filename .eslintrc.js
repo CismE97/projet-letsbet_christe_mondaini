@@ -32,5 +32,8 @@ module.exports = {
         "anonymous": "always",
         "named": "never"
     }]
+  },
+  globals: {
+    $: false
   }
 }

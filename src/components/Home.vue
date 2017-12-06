@@ -24,17 +24,37 @@
             </div>
         </div>
 
-        <div class="row matchs">
-            <div class="col">
-                <h2>Matchs diponibles</h2>
-                <div class="card">
-                    <div class="card-body">
-                        <p><span class="team">FC ... VS FC ...</span></p>
+    <div class="row matchs">
+        <div class="col-md-12">
+            <h2>Matchs diponibles</h2>
+            <div class="card match">
+                <form class="form-inline">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-md-4 align-self-center">
+                                <p class="text-left">Equipe 1 VS Equipe 2</p>
+                            </div>
+                            <div class="col-md-4 align-self-center text-left">
+                                <p class="text-left">dd.mm.yyyy - hh:mm</p>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <input type="number" class="form-control text-center" id="scoreA" placeholder="0">:
+                                <input type="number" class="form-control text-center" id="scoreB" placeholder="0">  
+                                <button type="button" class="btn btn-outline-info">Parier</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
-        </div>
+            </div>
     </div>
+
+
+        
+    </div>
+
+
+    
 </template>
 <script>
 export default {
@@ -51,6 +71,15 @@ export default {
     .header{
         margin-bottom: 5%;
         border-bottom: 1px solid #000;
+    }
+    form{
+        margin:0;
+    }
+    .matchs p {
+        margin: 0;
+    }
+    .matchs input {
+        width: 50px;
     }
 
 </style>
