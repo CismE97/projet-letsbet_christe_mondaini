@@ -60,7 +60,7 @@
 
                 </div>
                 <div class="col-md-4">
-                    Graphe
+                    <canvas id="chart"></canvas>
                 </div>
             </div>
         </div>
@@ -95,7 +95,7 @@ export default {
     .classement-me{
         background-color: #81C784;
     }
-    
+
     .header{
         margin-bottom: 5%;
         border-bottom: 1px solid #000;
