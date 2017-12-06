@@ -61,7 +61,6 @@
         <div class="col-md-12">
             <h2>Matchs diponibles</h2>
             <div class="card match">
-                <form class="form-inline">
                     <div class="card-body ">
                         <div class="row">
                             <div class="col-md-4 align-self-center">
@@ -71,23 +70,24 @@
                                 <p class="text-left">dd.mm.yyyy - hh:mm</p>
                             </div>
                             <div class="col-md-4 text-right">
-                                <input type="number" class="form-control text-center" id="scoreA" placeholder="0">:
-                                <input type="number" class="form-control text-center" id="scoreB" placeholder="0">  
-                                <button type="button" class="btn btn-outline-info">Parier</button>
+                                <div class="row">
+                                    <form class="form-inline">
+                                        <div class="col-md-8 col-12">
+                                            <input type="number" class="text-center" id="scoreA" placeholder="0">:
+                                            <input type="number" class="text-center" id="scoreB" placeholder="0">
+                                        </div>
+                                        <div class="col-md-4 col-12">
+                                            <button type="button" class="btn btn-outline-info">Parier</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </form>
             </div>
             </div>
+    </div>   
     </div>
-
-
-        
-    </div>
-
-
-    
 </template>
 <script>
 export default {
