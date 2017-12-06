@@ -47,7 +47,7 @@
                             <td>500</td>
                         </tr>
                     </table>
-
+                    <p class="text-right"><a class="btn btn-outline-info" href="#">Afficher tout</a></p>
 
                 </div>
                 <div class="col-md-4 col-12">
