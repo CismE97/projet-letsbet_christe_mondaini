@@ -56,44 +56,69 @@
                 </div>
             </div>
         </div>
-
-    <div class="row matchs">
-        <div class="col-md-12">
-            <h2>Matchs diponibles</h2>
-            <div class="card match">
-                    <div class="card-body ">
-                        <div class="row">
-                            <div class="col-md-4 align-self-center">
-                                <p class="text-left">Equipe 1 VS Equipe 2</p>
-                            </div>
-                            <div class="col-md-4 align-self-center text-left">
-                                <p class="text-left">dd.mm.yyyy - hh:mm</p>
-                            </div>
-                            <div class="col-md-4 text-right">
-                                <div class="row">
-                                    <form class="form-inline">
-                                        <div class="col-md-8 col-12">
-                                            <input type="number" class="text-center" id="scoreA" placeholder="0">:
-                                            <input type="number" class="text-center" id="scoreB" placeholder="0">
-                                        </div>
-                                        <div class="col-md-4 col-12">
-                                            <button type="button" class="btn btn-outline-info">Parier</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="row matchs">
+            <div class="col-md-12">
+                <h2>Matchs diponibles</h2>
+                <transition-group tag="div" name="list" class="fixtures">
+                    <my-fixture v-bind:value="p" v-bind:index="i" v-bind:key="i" v-for="(p, i) in fixtures"></my-fixture>
+                </transition-group> 
             </div>
-            </div>
-    </div>   
+        </div>
     </div>
 </template>
 <script>
+import Fixture from './Fixture';
 export default {
     name: 'Home',
     data() {
-        return {};
+        return {
+            fixtures: [{
+                id: 1,
+                date: '22.12.2017 - 20:00',
+                teamA: 'Fc Barclone',
+                teamB: 'Real Madrid',
+                pariedScore: null,
+                result: null
+            }, {
+                id: 2,
+                date: '22.12.2017 - 20:00',
+                teamA: 'Fc Bâle',
+                teamB: 'Lausanne Sport',
+                pariedScore: '2 - 0',
+                result: null
+            }, {
+                id: 3,
+                date: '22.12.2017 - 20:00',
+                teamA: 'Fc Bâle',
+                teamB: 'Lausanne Sport',
+                pariedScore: null,
+                result: '2 - 0'
+            }, {
+                id: 4,
+                date: '22.12.2017 - 20:00',
+                teamA: 'Fc Barclone',
+                teamB: 'Real Madrid',
+                pariedScore: '0 - 1',
+                result: '2 - 0'
+            }, {
+                id: 5,
+                date: '22.12.2017 - 20:00',
+                teamA: 'Fc Barclone',
+                teamB: 'Real Madrid',
+                pariedScore: '1 - 0',
+                result: '2 - 0'
+            }, {
+                id: 6,
+                date: '22.12.2017 - 20:00',
+                teamA: 'Fc Barclone',
+                teamB: 'Real Madrid',
+                pariedScore: '2 - 0',
+                result: '2 - 0'
+            }]
+        };
+    },
+    components: {
+        'my-fixture': Fixture
     }
 };
 </script>
@@ -112,14 +137,4 @@ export default {
         margin-bottom: 5%;
         border-bottom: 1px solid #000;
     }
-    form{
-        margin:0;
-    }
-    .matchs p {
-        margin: 0;
-    }
-    .matchs input {
-        width: 50px;
-    }
-
 </style>
