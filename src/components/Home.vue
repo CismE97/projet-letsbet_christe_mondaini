@@ -1,19 +1,15 @@
 <template>
     <div class="container">
         <div class="row header">
-            <div class="col">
-                <div class="row text-left">
-                    <div class="col-2"><img src="http://lorempixel.com/100/100/" alt="photo de profil"></div>
-                    <div class="col-8">
-                        <h2>User Name</h2>
-                        <p>Points restants : 2000</p>
-                        <p>Points en attente : 200</p>
-                    </div>
-                    <div class="col-2">
-                        <p>Mon compte</p>
-                    </div>
+            <div class="col-md-2 col-4"><img src="https://robohash.org/1?size=150x150" alt="photo de profil" class="img-fluid"></div>
+                <div class="col-md-6 col-8 text-left">
+                    <h2>User Name</h2>
+                    <p>Points restants : 2000 <br> Points en attente : 200</p>
                 </div>
-            </div>
+                <div class="col-md-4 col-sm-12 text-right">
+                    <p><a class="btn btn-outline-info" href="#">Mon compte</a></p>
+                    <p>Nombre résultats exacts : 10</p>
+                </div>
         </div>
         <div class="stats">
             <div class="row text-left">
@@ -92,11 +88,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-th, td{
-    padding: 10px;
-}
+    th, td{
+        padding: 10px;
+    }
 
-.classement-me{
-    background-color: #81C784;
-}
+    .classement-me{
+        background-color: #81C784;
+    }
+    
+    .header{
+        margin-bottom: 5%;
+        border-bottom: 1px solid #000;
+    }
+
 </style>
