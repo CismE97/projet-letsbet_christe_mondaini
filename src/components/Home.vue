@@ -74,57 +74,17 @@ export default {
     name: 'Home',
     data() {
         return {
-            fixtures: [{
-                id: 1,
-                date: '22.12.2017 - 20:00',
-                teamA: 'Fc Barclone',
-                teamB: 'Real Madrid',
-                pariedScore: null,
-                result: null
-            }, {
-                id: 2,
-                date: '22.12.2017 - 20:00',
-                teamA: 'Fc Bâle',
-                teamB: 'Lausanne Sport',
-                pariedScore: '2 - 0',
-                result: null
-            }, {
-                id: 3,
-                date: '22.12.2017 - 20:00',
-                teamA: 'Fc Bâle',
-                teamB: 'Lausanne Sport',
-                pariedScore: null,
-                result: '2 - 0'
-            }, {
-                id: 4,
-                date: '22.12.2017 - 20:00',
-                teamA: 'Fc Barclone',
-                teamB: 'Real Madrid',
-                pariedScore: '0 - 1',
-                result: '2 - 0'
-            }, {
-                id: 5,
-                date: '22.12.2017 - 20:00',
-                teamA: 'Fc Barclone',
-                teamB: 'Real Madrid',
-                pariedScore: '1 - 0',
-                result: '2 - 0'
-            }, {
-                id: 6,
-                date: '22.12.2017 - 20:00',
-                teamA: 'Fc Barclone',
-                teamB: 'Real Madrid',
-                pariedScore: '2 - 0',
-                result: '2 - 0'
-            }]
+            fixtures: []
         };
     },
     methods: {
         loadData: function () {
-            axios.get('http://cors-proxy.htmldriven.com/?url=http://api.football-data.org/v1/competitions/445/fixtures').then(response => {
-                this.apiReply = response.data;
-                this.dataLoaded = true;
-                console.log(response.data);
+            axios.get('https://thingproxy.freeboard.io/fetch/https://api.football-data.org/v1/competitions/445/fixtures?matchday=15')
+            .then((response) => {
+                this.fixtures = response.data.fixtures;
+            })
+            .catch((error) => {
+                this.erreur = error;
             });
         }
     },

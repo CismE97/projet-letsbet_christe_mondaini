@@ -3,7 +3,7 @@
     <div class="card-body ">
       <div class="row">
         <div class="col-md-4 align-self-center">
-            <p class="text-left">{{value.teamA}} VS {{value.teamB}}</p>
+            <p class="text-left">{{value.homeTeamName}} VS {{value.awayTeamName}}</p>
         </div>
         <div class="col-md-4 align-self-center text-left">
             <p class="text-left">{{value.date}}</p>
@@ -11,7 +11,7 @@
         <div class="col-md-4">
           <div v-if="value.result" class="row">
             <div class="col-md-12 col-12">
-                <p>{{value.result}}</p>
+                <p>{{value.result.goalsHomeTeam}} - {{value.result.goalsAwayTeam}}</p>
             </div>
           </div>
           <div v-else class="row ">
