@@ -68,6 +68,8 @@
 </template>
 <script>
 import Fixture from './Fixture';
+import axios from 'axios';
+
 export default {
     name: 'Home',
     data() {
@@ -116,6 +118,18 @@ export default {
                 result: '2 - 0'
             }]
         };
+    },
+    methods: {
+        loadData: function () {
+            axios.get('http://cors-proxy.htmldriven.com/?url=http://api.football-data.org/v1/competitions/445/fixtures').then(response => {
+                this.apiReply = response.data;
+                this.dataLoaded = true;
+                console.log(response.data);
+            });
+        }
+    },
+    created() { // or mounted
+        this.loadData();
     },
     components: {
         'my-fixture': Fixture
