@@ -123,5 +123,4 @@ export default {
     .matchDayFilter{
         margin-bottom: 20px;
     }
-    
 </style>

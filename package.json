@@ -18,10 +18,13 @@
     "bootstrap-material-design": "^4.0.0-beta.4",
     "bootstrap.native": "^2.0.19",
     "chart.js": "^2.7.1",
+    "firebase": "^4.8.0",
+    "firebaseui": "^2.5.1",
     "jquery": "^3.2.1",
     "tether": "^1.4.3",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuefire": "^1.4.5"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
