@@ -2,6 +2,7 @@
 import Vue from 'vue';
 import firebase from 'firebase';
 import VueFire from 'vuefire';
+
 Vue.use(VueFire);
 
 // Initialize Firebase

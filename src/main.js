@@ -6,7 +6,7 @@ import router from './router';
 
 import 'tether/dist/js/tether.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'bootstrap-css-only/css/bootstrap.min.css';
+
 import 'bootstrap-material-design/dist/css/bootstrap-material-design.min.css';
 import Chart from 'chart.js';
 
