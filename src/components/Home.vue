@@ -1,13 +1,13 @@
 <template>
     <div class="container">
         <div class="row header">
-            <div class="col-md-2 col-4"><img src="https://robohash.org/1?size=150x150" alt="photo de profil" class="img-fluid"></div>
+            <div class="col-md-2 col-4"><img v-bind:src="userPictureURL" alt="photo de profil" class="img-fluid"></div>
                 <div class="col-md-6 col-8 text-left">
                     <h2>{{userName}}</h2>
                     <p>Points restants : 2000 <br> Points en attente : 200</p>
                 </div>
                 <div class="col-md-4 col-sm-12 text-right">
-                    <p><a class="btn btn-outline-info" href="#">Mon compte</a></p>
+                    <p><a class="btn btn-outline-info" href="#">Mon compte</a> <a class="btn btn-outline-info" href="#" v-on:click='logOut'>Se déconnecter</a></p>
                     <p>Nombre résultats exacts : 10</p>
                 </div>
         </div>
@@ -80,6 +80,7 @@ export default {
     data() {
         return {
             userName: '',
+            userPictureURL: '',
             fixtures: [],
             numberJourney: 38,
             journeySelected: 1
@@ -98,12 +99,16 @@ export default {
             .catch((error) => {
                 this.erreur = error;
             });
+        },
+        logOut: function () {
+            console.log('logOut');
         }
     },
     created() { // or mounted
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.userName = user.displayName;
+                this.userPictureURL = user.photoURL;
                 this.loadData();
             } else {
                 this.$router.push('/login');
