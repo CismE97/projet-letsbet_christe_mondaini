@@ -59,6 +59,11 @@
         <div class="row matchs">
             <div class="col-md-12">
                 <h2>Matchs diponibles</h2>
+                <div class="matchDayFilter">
+                    <select class="form-control form-control-lg" v-model="journeySelected" @change="loadData">
+                        <option v-bind:value="p" v-bind:key="i" v-for="(p,i) in numberJourney">Journée {{p}}</option>
+                    </select>
+                </div>
                 <transition-group tag="div" name="list" class="fixtures">
                     <my-fixture v-bind:value="p" v-bind:index="i" v-bind:key="i" v-for="(p, i) in fixtures"></my-fixture>
                 </transition-group> 
@@ -74,12 +79,18 @@ export default {
     name: 'Home',
     data() {
         return {
-            fixtures: []
+            fixtures: [],
+            numberJourney: 38,
+            journeySelected: 1
         };
     },
     methods: {
         loadData: function () {
-            axios.get('https://thingproxy.freeboard.io/fetch/https://api.football-data.org/v1/competitions/445/fixtures?matchday=15')
+            axios.get('https://thingproxy.freeboard.io/fetch/https://api.football-data.org/v1/competitions/445/fixtures', {
+                params: {
+                    matchday: this.journeySelected
+                }
+            })
             .then((response) => {
                 this.fixtures = response.data.fixtures;
             })
@@ -99,16 +110,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    th, td{
-        padding: 10px;
-    }
-
-    .classement-me{
-        background-color: #81C784;
-    }
-
     .header{
         margin-bottom: 5%;
         border-bottom: 1px solid #000;
     }
+    th, td{
+        padding: 10px;
+    }
+    .classement-me{
+        background-color: #81C784;
+    }
+    .matchDayFilter{
+        margin-bottom: 20px;
+    }
+    
 </style>
