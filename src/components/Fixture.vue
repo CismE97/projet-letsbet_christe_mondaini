@@ -3,30 +3,28 @@
     <div class="card-body ">
       <div class="row">
         <div class="col-md-4 align-self-center">
-            <p class="text-left">{{value.homeTeamName}} VS {{value.awayTeamName}}</p>
+            <p class="text-center">{{value.homeTeamName}} VS {{value.awayTeamName}}</p>
         </div>
-        <div class="col-md-4 align-self-center text-left">
-            <p class="text-left">{{ value.date | dateFormat }}</p>
+        <div class="col-md-4 align-self-center">
+            <p class="text-center">{{ value.date | dateFormat }}</p>
         </div>
         
-        <div class="col-md-4">
-          <div v-if="value.status != 'SCHEDULED'" class="row">
-            <div class="col-md-12 col-12">
+
+          <div v-if="value.status != 'SCHEDULED' && value.status != 'TIMED'" class="col-md-4 align-self-center">
+            <div>
                 <p>{{value.result.goalsHomeTeam}} - {{value.result.goalsAwayTeam}}</p>
             </div>
           </div>
-          <div v-else class="row">
+          <div v-else class="col-md-4 align-self-center">
             <form class="form-inline">
-              <div class="col-md-8 col-12">
-                <input type="number" class="text-center" id="scoreA" placeholder="0">:
-                <input type="number" class="text-center" id="scoreB" placeholder="0">
-              </div>
-              <div class="col-md-4 col-12">
-                  <button type="button" class="btn btn-outline-info">Parier</button>
+              <div>
+                <input type="number" class="form-control text-center col-md-2 col-sm-2" id="scoreA" placeholder="0" min="0">:
+                <input type="number" class="form-control text-center col-md-2 col-sm-2" id="scoreB" placeholder="0" min="0">
+                <button type="button" class="btn btn-outline-info">Parier</button>
               </div>
             </form>
           </div>
-        </div>
+
       </div>
     </div>
   </div>
