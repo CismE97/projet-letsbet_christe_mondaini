@@ -6,6 +6,9 @@
     </div>
 </template>
 <script>
+import 'firebaseui/dist/firebaseui.css';
+import 'firebaseui/dist/firebaseui.js';
+
 import firebase from 'firebase';
 import firebaseui from 'firebaseui';
 
