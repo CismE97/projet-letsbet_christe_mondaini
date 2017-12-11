@@ -89,6 +89,9 @@ export default {
     methods: {
         loadData: function () {
             axios.get('https://thingproxy.freeboard.io/fetch/https://api.football-data.org/v1/competitions/445/fixtures', {
+                headers: {
+                    'X-Auth-Token': 'd2c960e664ad4668bb0236ca7442bf12'
+                },
                 params: {
                     matchday: this.journeySelected
                 }
