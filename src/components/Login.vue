@@ -15,8 +15,15 @@ import firebaseui from 'firebaseui';
 export default {
     name: 'Login',
     mounted() {
+        var redirectURL = '';
+        if (process.env.NODE_ENV === 'production') {            // Rendre plus propre
+            redirectURL = '/projet-letsbet_christe_mondaini/';
+        } else {
+            redirectURL = '/';
+        }
+
         var uiConfig = {
-            signInSuccessUrl: '/',
+            signInSuccessUrl: redirectURL,
             signInOptions: [
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
                 firebase.auth.EmailAuthProvider.PROVIDER_ID
