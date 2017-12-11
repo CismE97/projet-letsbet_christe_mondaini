@@ -39,7 +39,8 @@ export default {
     filters: {
         dateFormat: function (value) {
             if (value) {
-                return moment(String(value)).format('DD/MM/YYYY hh:mm a');
+                moment.locale('ch');
+                return moment(String(value)).format('DD/MM/YYYY HH:mm');
             }
         }
     }
