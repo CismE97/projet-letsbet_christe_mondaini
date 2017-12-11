@@ -8,12 +8,11 @@
         <div class="col-md-4 align-self-center">
             <p class="text-center">{{ value.date | dateFormat }}</p>
         </div>
-        
-
-          <div v-if="value.status != 'SCHEDULED' && value.status != 'TIMED'" class="col-md-4 align-self-center">
-            <div>
-                <p>{{value.result.goalsHomeTeam}} - {{value.result.goalsAwayTeam}}</p>
-            </div>
+        <div v-if="value.status != 'SCHEDULED' && value.status != 'TIMED'" class="col-md-4">
+          <div>
+                <p>Résultat : {{value.result.goalsHomeTeam}} - {{value.result.goalsAwayTeam}}</p>
+                <p>Paris : 1 - 1</p>
+          </div>
           </div>
           <div v-else class="col-md-4 align-self-center">
             <form class="form-inline">
