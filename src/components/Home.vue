@@ -101,7 +101,9 @@ export default {
             });
         },
         logOut: function () {
-            console.log('logOut');
+            firebase.auth().signOut().then(function () {
+                this.$router.push('/login');
+            });
         }
     },
     created() { // or mounted
