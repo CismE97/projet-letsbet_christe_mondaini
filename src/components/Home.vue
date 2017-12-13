@@ -14,7 +14,7 @@
         <div class="stats">
             <div class="row text-left">
                 <div class="col-md-8 col-12">
-                    <my-SummaryClassement></my-SummaryClassement>
+                    <my-SummaryClassement v-bind:userId="userId"></my-SummaryClassement>
                 </div>
                 <div class="col-md-4 col-12">
                     <h2>Mes stats</h2>
