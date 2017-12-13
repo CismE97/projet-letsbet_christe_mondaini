@@ -8,10 +8,10 @@
         <div class="col-md-4 align-self-center">
             <p class="text-center">{{ value.date | dateFormat }}</p>
         </div>
-        <div v-if="value.status != 'SCHEDULED' && value.status != 'TIMED'" class="col-md-4">
+        <div v-if="(value.status != 'SCHEDULED' && value.status != 'TIMED') || user.matchs[getMatchId(value)]" class="col-md-4">
           <div>
-                <p>Résultat : {{value.result.goalsHomeTeam}} - {{value.result.goalsAwayTeam}}</p>
-                <p>Paris : 1 - 1</p>
+                <p v-if="value.status = 'FINISHED'">Résultat : {{value.result.goalsHomeTeam}} - {{value.result.goalsAwayTeam}}</p>
+                <p v-if="user.matchs[getMatchId(value)]" >Mon Paris : {{user.matchs[getMatchId(value)].homeTeamScoreBetted}} - {{user.matchs[getMatchId(value)].awayTeamScoreBetted}}</p>
           </div>
           </div>
           <div v-else class="col-md-4 align-self-center">
@@ -34,9 +34,11 @@ import firebase from '../firebase';
 export default {
     data() {
         return {
+            scoreHome: null,
+            scoreAway: null
         };
     },
-    props: ['value', 'index', 'userId'],
+    props: ['value', 'index', 'userId', 'user'],
     filters: {
         dateFormat: function (value) {
             if (value) {
