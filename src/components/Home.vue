@@ -4,7 +4,7 @@
             <div class="col-md-2 col-4"><img v-bind:src="userPictureURL" alt="photo de profil" class="img-fluid"></div>
                 <div class="col-md-6 col-8 text-left">
                     <h2>{{userName}}</h2>
-                    <p>Points restants : {{userLogged.nbPoints}} <br> Points en attente : 200</p>
+                    <p>Points restants : {{userLogged.nbPoints}} <!-- <br>  Points en attente : 200 --></p>
                 </div>
                 <div class="col-md-4 col-sm-12 text-right">
                     <p><a class="btn btn-outline-info" href="#">Mon compte</a> <a class="btn btn-outline-info" href="#" v-on:click='logOut'>Se déconnecter</a></p>
@@ -31,7 +31,7 @@
                     </select>
                 </div>
                 <transition-group tag="div" name="list" class="fixtures">
-                    <my-fixture v-bind:userId="userId" v-bind:value="p" v-bind:index="i" v-bind:key="i" v-for="(p, i) in fixtures"></my-fixture>
+                    <my-fixture v-bind:user="userLogged" v-bind:userId="userId" v-bind:value="p" v-bind:index="i" v-bind:key="i" v-for="(p, i) in fixtures"></my-fixture>
                 </transition-group> 
             </div>
         </div>
