@@ -3,12 +3,12 @@
         <div class="row header">
             <div class="col-md-2 col-4"><img v-bind:src="userPictureURL" alt="photo de profil" class="img-fluid"></div>
                 <div class="col-md-6 col-8 text-left">
-                    <h2>{{userName}}</h2>
-                    <p>Points restants : 2000 <br> Points en attente : 200</p>
+                    <h2>{{userLogged.nbPoints}}</h2>
+                    <p>Points restants : {{nbPoints}} <br> Points en attente : 200</p>
                 </div>
                 <div class="col-md-4 col-sm-12 text-right">
                     <p><a class="btn btn-outline-info" href="#">Mon compte</a> <a class="btn btn-outline-info" href="#" v-on:click='logOut'>Se déconnecter</a></p>
-                    <p>Nombre résultats exacts : 10</p>
+                    <p>Nombre résultats exacts : {{userLogged}}</p>
                 </div>
         </div>
         <div class="stats">
@@ -79,8 +79,14 @@ export default {
     name: 'Home',
     data() {
         return {
+            userId: null,
             userName: '',
             userPictureURL: '',
+            nbPoints: 0,
+            nbResultsFounded: 0,
+
+            userLogged: '',
+
             fixtures: [],
             numberJourney: 38,
             journeySelected: 1
@@ -107,14 +113,19 @@ export default {
             firebase.auth().signOut().then(function () {
                 this.$router.push('/login');
             });
+        },
+        getUserData: function () {
+           // var ref = firebase.database().ref('users/' + this.userId);
         }
     },
     created() { // or mounted
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
+                this.userId = user.uid;
                 this.userName = user.displayName;
                 this.userPictureURL = user.photoURL;
                 this.loadData();
+                this.getUserData();
             } else {
                 this.$router.push('/login');
             }
