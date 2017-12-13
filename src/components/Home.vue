@@ -65,7 +65,7 @@
                     </select>
                 </div>
                 <transition-group tag="div" name="list" class="fixtures">
-                    <my-fixture v-bind:value="p" v-bind:index="i" v-bind:key="i" v-for="(p, i) in fixtures"></my-fixture>
+                    <my-fixture v-bind:userId="userId" v-bind:value="p" v-bind:index="i" v-bind:key="i" v-for="(p, i) in fixtures"></my-fixture>
                 </transition-group> 
             </div>
         </div>

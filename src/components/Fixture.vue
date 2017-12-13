@@ -17,9 +17,9 @@
           <div v-else class="col-md-4 align-self-center">
             <form class="form-inline">
               <div>
-                <input type="number" class="form-control text-center col-md-2 col-sm-2" id="scoreA" placeholder="0" min="0">:
-                <input type="number" class="form-control text-center col-md-2 col-sm-2" id="scoreB" placeholder="0" min="0">
-                <button type="button" class="btn btn-outline-info">Parier</button>
+                <input type="number" class="form-control text-center col-md-2 col-sm-2" id="scoreHome" v-model="scoreHome" placeholder="0" min="0">:
+                <input type="number" class="form-control text-center col-md-2 col-sm-2" id="scoreAway" v-model="scoreAway" placeholder="0" min="0">
+                <button v-on:click="addUserBet(scoreHome, scoreAway, getMatchId(value))" type="button" class="btn btn-outline-info">Parier</button>
               </div>
             </form>
           </div>
@@ -30,18 +30,33 @@
 </template>
 <script>
 import moment from 'moment';
+import firebase from '../firebase';
 export default {
     data() {
         return {
         };
     },
-    props: ['value', 'index'],
+    props: ['value', 'index', 'userId'],
     filters: {
         dateFormat: function (value) {
             if (value) {
                 moment.locale('ch');
                 return moment(String(value)).format('DD/MM/YYYY HH:mm');
             }
+        }
+    },
+    methods: {
+        addUserBet: function (scoreHome, scoreAway, matchId) {
+            firebase.database().ref('users/' + this.userId + '/matchs/' + matchId).set({
+                homeTeamScoreBetted: scoreHome,
+                awayTeamScoreBetted: scoreAway,
+                validate: false
+            });
+        },
+        getMatchId: function (value) {
+            let link = value._links.self.href;
+
+            return link.slice(link.lastIndexOf('/') + 1, link.length);
         }
     }
 };
