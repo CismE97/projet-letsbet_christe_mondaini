@@ -14,41 +14,7 @@
         <div class="stats">
             <div class="row text-left">
                 <div class="col-md-8 col-12">
-                    <h2>Classement</h2>
-                    <table class="table classement">
-                        <tr>
-                            <th>N°</th>
-                            <th>Joueur</th>
-                            <th>Points</th>
-                        </tr>
-                        <tr >
-                            <td>5</td>
-                            <td>Pseudo</td>
-                            <td>4000</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Pseudo</td>
-                            <td>3000</td>
-                        </tr>
-                        <tr class="classement-me">
-                            <td>7</td>
-                            <td>Me</td>
-                            <td>2000</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>Pseudo</td>
-                            <td>1000</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>Pseudo</td>
-                            <td>500</td>
-                        </tr>
-                    </table>
-                    <p class="text-right"><a class="btn btn-outline-info" href="#">Afficher tout</a></p>
-
+                    <my-SummaryClassement></my-SummaryClassement>
                 </div>
                 <div class="col-md-4 col-12">
                     <h2>Mes stats</h2>
@@ -73,6 +39,7 @@
 </template>
 <script>
 import Fixture from './Fixture';
+import SummaryClassement from './SummaryClassement';
 import axios from 'axios';
 import firebase from '../firebase';
 export default {
@@ -129,7 +96,8 @@ export default {
         });
     },
     components: {
-        'my-fixture': Fixture
+        'my-fixture': Fixture,
+        'my-SummaryClassement': SummaryClassement
     }
 };
 </script>
@@ -139,12 +107,6 @@ export default {
     .header{
         margin-bottom: 5%;
         border-bottom: 1px solid #000;
-    }
-    th, td{
-        padding: 10px;
-    }
-    .classement-me{
-        background-color: #81C784;
     }
     .matchDayFilter{
         margin-bottom: 20px;
