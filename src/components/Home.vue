@@ -3,12 +3,12 @@
         <div class="row header">
             <div class="col-md-2 col-4"><img v-bind:src="userPictureURL" alt="photo de profil" class="img-fluid"></div>
                 <div class="col-md-6 col-8 text-left">
-                    <h2>{{userLogged.nbPoints}}</h2>
-                    <p>Points restants : {{nbPoints}} <br> Points en attente : 200</p>
+                    <h2>{{userName}}</h2>
+                    <p>Points restants : {{userLogged.nbPoints}} <br> Points en attente : 200</p>
                 </div>
                 <div class="col-md-4 col-sm-12 text-right">
                     <p><a class="btn btn-outline-info" href="#">Mon compte</a> <a class="btn btn-outline-info" href="#" v-on:click='logOut'>Se déconnecter</a></p>
-                    <p>Nombre résultats exacts : {{userLogged}}</p>
+                    <p>Nombre résultats exacts : {{userLogged.nbResultsFounded}}</p>
                 </div>
         </div>
         <div class="stats">
@@ -113,19 +113,16 @@ export default {
             firebase.auth().signOut().then(function () {
                 this.$router.push('/login');
             });
-        },
-        getUserData: function () {
-           // var ref = firebase.database().ref('users/' + this.userId);
         }
     },
     created() { // or mounted
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
-                this.userId = user.uid;
+                this.userId = user.uid;                 // A mettre dans un objet
                 this.userName = user.displayName;
                 this.userPictureURL = user.photoURL;
                 this.loadData();
-                this.getUserData();
+                this.$bindAsObject('userLogged', firebase.database().ref('users/' + this.userId + '/'));
             } else {
                 this.$router.push('/login');
             }
