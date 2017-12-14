@@ -52,7 +52,7 @@ export default {
             firebase.database().ref('users/' + this.userId + '/matchs/' + matchId).set({
                 homeTeamScoreBetted: scoreHome,
                 awayTeamScoreBetted: scoreAway,
-                validate: false
+                status: 'notValidate'
             });
         },
         getMatchId: function (value) {
