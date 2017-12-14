@@ -7,15 +7,10 @@
                     <th>Joueur</th>
                     <th>Points</th>
                 </tr>
-                <tr  v-bind:value="userItem" v-bind:index="i" v-bind:key="i" v-for="(userItem, i) in sortUsersArray">
-                    <td>5</td>
+                <tr  v-bind:value="userItem" v-bind:index="i" v-bind:key="i" v-for="(userItem, i) in sortUsersArray" :class="classementMe(userItem)">
+                    <td>{{userItem.position}}</td>
                     <td>{{userItem.userName}}</td>
                     <td>{{userItem.nbPoints}}</td>
-                </tr>
-                <tr class="classement-me">
-                    <td>7</td>
-                    <td>Me</td>
-                    <td>2000</td>
                 </tr>
         </table>
         <p class="text-right"><a class="btn btn-outline-info" href="#">Afficher tout</a></p>
@@ -50,24 +45,37 @@ export default {
                 return arraySorted;
             } else {
                 var myIndex = -1;
-                // On recherche sa position
+                // On recherche sa position et on ajoute les places
                 for (let i = 0; i < arraySorted.length; i++) {
                     if (arraySorted[i]['.key'] === this.userId) {
                         myIndex = i;
                     }
+                    arraySorted[i]['position'] = i + 1;
                 }
-                let arraySortedToReturn = [5];
-                // Ajouter les précédents
-                for (let i = myIndex; i > myIndex - 2 || i <= 0; i--) {
-                    arraySortedToReturn[i] = arraySorted[myIndex - i];
+
+                if (myIndex < 5) {
+                    arraySorted.splice(5, arraySorted.length);
+                } else if (myIndex > arraySorted.length - 5) {
+                    arraySorted.splice(0, arraySorted.length - 5);                       // Ne joue pas !
+                } else {
+                    for (let i = 0; i < myIndex - 2; i++) {
+                        arraySorted.splice(0, 1);
+                    }
+                    for (let i = myIndex + 2; i < arraySorted.length; i++) {
+                        arraySorted.splice(i, 1);
+                    }
                 }
-                arraySortedToReturn[3] = arraySorted[myIndex];
-                // Ajouter les suivants
-                for (let i = myIndex; i < myIndex + 2 || i <= arraySorted.length; i++) {
-                    arraySortedToReturn[i] = arraySorted[myIndex - i];
-                }
-                return arraySortedToReturn;
+
+                return arraySorted;
             }
+        }
+    },
+    methods: {
+        classementMe: function (userItem) {
+            if (userItem['.key'] === this.userId) {
+                return 'classement-me';
+            }
+            return '';
         }
     },
     created() {
