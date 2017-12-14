@@ -49,26 +49,23 @@ export default {
             if (arraySorted.length < 5) {
                 return arraySorted;
             } else {
-                // A modifier
-
                 var myIndex = -1;
-
                 // On recherche sa position
                 for (let i = 0; i < arraySorted.length; i++) {
                     if (arraySorted[i]['.key'] === this.userId) {
                         myIndex = i;
                     }
                 }
-
-                // Création du classement restreint
-                // On prend les deux précédent et les deux suivants
                 let arraySortedToReturn = [5];
-                // arraySortedToReturn[0] = arraySorted[myIndex - 2];
-                arraySortedToReturn[0] = arraySorted[myIndex - 1];
-                arraySortedToReturn[1] = arraySorted[myIndex];
-                // arraySortedToReturn[3] = arraySorted[myIndex + 1];
-                // arraySortedToReturn[4] = arraySorted[myIndex + 2];
-
+                // Ajouter les précédents
+                for (let i = myIndex; i > myIndex - 2 || i <= 0; i--) {
+                    arraySortedToReturn[i] = arraySorted[myIndex - i];
+                }
+                arraySortedToReturn[3] = arraySorted[myIndex];
+                // Ajouter les suivants
+                for (let i = myIndex; i < myIndex + 2 || i <= arraySorted.length; i++) {
+                    arraySortedToReturn[i] = arraySorted[myIndex - i];
+                }
                 return arraySortedToReturn;
             }
         }
