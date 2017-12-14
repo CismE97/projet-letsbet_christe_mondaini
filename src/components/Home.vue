@@ -115,7 +115,7 @@ export default {
             });
         }
     },
-    created() { // or mounted
+    beforeCreate() { // or mounted
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.userId = user.uid;                 // A mettre dans un objet
