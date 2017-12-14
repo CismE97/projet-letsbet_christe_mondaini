@@ -57,7 +57,6 @@ export default {
         },
         getMatchId: function (value) {
             let link = value._links.self.href;
-
             return link.slice(link.lastIndexOf('/') + 1, link.length);
         }
     }
