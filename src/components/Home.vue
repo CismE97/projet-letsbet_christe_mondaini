@@ -87,6 +87,9 @@ export default {
             if (user) {
                 this.userId = user.uid;                 // A mettre dans un objet
                 this.userName = user.displayName;
+                firebase.database().ref('users/' + this.userId).update({
+                    userName: user.displayName
+                });
                 this.userPictureURL = user.photoURL;
                 this.loadData();
                 this.$bindAsObject('userLogged', firebase.database().ref('users/' + this.userId + '/'));

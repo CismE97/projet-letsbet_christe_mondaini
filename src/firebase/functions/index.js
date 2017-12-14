@@ -6,7 +6,7 @@ const ref = admin.database().ref();
 
 exports.createUserAccount = functions.auth.user().onCreate(event => {
     const uid = event.data.uid;
-    const displayName = event.data.displayName;
+    const displayName = '';
     const newUserRef = ref.child(`/users/${uid}`);
     return newUserRef.set({
         nbPoints: 50,
