@@ -106,7 +106,7 @@ export default {
                         }
                     })
                     .then((response) => {
-                        this.fixtures = response.data.fixtures;
+                        const matchToCheck = response.data.result;
                     })
                     .catch((error) => {
                         this.erreur = error;
