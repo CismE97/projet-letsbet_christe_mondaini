@@ -60,12 +60,13 @@ export default {
             journeySelected: 1,
             usersArray: [],
             matchsNotValidate: [],
-            userMatchsToValidate: {},
-            match: {}
+            userMatchsToValidate: {}
+            // match: {}
         };
     },
     methods: {
         resultsValidation: function () {
+            // ----Récuprération des matchs notValidated + mise dans un tableau -----
             this.$bindAsArray('usersArray', firebase.database().ref('users/'));
             this.usersArray.forEach(user => {
                 this.userMatchsToValidate = {
@@ -75,16 +76,41 @@ export default {
                 let needToValidate = false;
                 for (let index in user.matchs) {
                     if (user.matchs[index].status === 'notValidate') {
-                        this.match = {
+                        const match = {
                             awayTeamScoreBetted: user.matchs[index].awayTeamScoreBetted,
-                            homeTeamScoreBetted: user.matchs[index].homeTeamScoreBetted
+                            homeTeamScoreBetted: user.matchs[index].homeTeamScoreBetted,
+                            matchId: index
                         };
-                        this.userMatchsToValidate.matchs[index] = this.match;
+                        this.userMatchsToValidate.matchs[index] = match;
                         needToValidate = true;
                     }
                 }
                 if (needToValidate) {
                     this.matchsNotValidate.push(this.userMatchsToValidate);
+                }
+            });
+
+            // -----  -----
+            this.matchsNotValidate.forEach(user => {
+                // eslint-disable-next-line
+                let userId = user.userId;                
+                for (let index in user.matchs) {
+                    let matchId = user.matchs[index].matchId;
+
+                    axios.get('https://thingproxy.freeboard.io/fetch/http://api.football-data.org/v1/fixtures', {
+                        headers: {
+                            'X-Auth-Token': 'd2c960e664ad4668bb0236ca7442bf12'
+                        },
+                        params: {
+                            fixtures: matchId
+                        }
+                    })
+                    .then((response) => {
+                        this.fixtures = response.data.fixtures;
+                    })
+                    .catch((error) => {
+                        this.erreur = error;
+                    });
                 }
             });
         },
