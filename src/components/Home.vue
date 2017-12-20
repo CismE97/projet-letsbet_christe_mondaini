@@ -5,6 +5,7 @@
                 <div class="col-md-6 col-8 text-left">
                     <h2>{{userName}}</h2>
                     <p>Points restants : {{userLogged.nbPoints}} <!-- <br>  Points en attente : 200 --></p>
+                    <a class="btn btn-outline-info" href="#" v-on:click='resultsValidation'>Valider résultats</a>
                 </div>
                 <div class="col-md-4 col-sm-12 text-right">
                     <p><a class="btn btn-outline-info" href="#">Mon compte</a> <a class="btn btn-outline-info" href="#" v-on:click='logOut'>Se déconnecter</a></p>
@@ -56,10 +57,37 @@ export default {
 
             fixtures: [],
             numberJourney: 38,
-            journeySelected: 1
+            journeySelected: 1,
+            usersArray: [],
+            matchsNotValidate: [],
+            userMatchsToValidate: {},
+            match: {}
         };
     },
     methods: {
+        resultsValidation: function () {
+            this.$bindAsArray('usersArray', firebase.database().ref('users/'));
+            this.usersArray.forEach(user => {
+                this.userMatchsToValidate = {
+                    userId: user['.key'],
+                    matchs: {}
+                };
+                let needToValidate = false;
+                for (let index in user.matchs) {
+                    if (user.matchs[index].status === 'notValidate') {
+                        this.match = {
+                            awayTeamScoreBetted: user.matchs[index].awayTeamScoreBetted,
+                            homeTeamScoreBetted: user.matchs[index].homeTeamScoreBetted
+                        };
+                        this.userMatchsToValidate.matchs[index] = this.match;
+                        needToValidate = true;
+                    }
+                }
+                if (needToValidate) {
+                    this.matchsNotValidate.push(this.userMatchsToValidate);
+                }
+            });
+        },
         loadData: function () {
             axios.get('https://thingproxy.freeboard.io/fetch/https://api.football-data.org/v1/competitions/445/fixtures', {
                 headers: {
