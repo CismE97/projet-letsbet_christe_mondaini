@@ -50,9 +50,12 @@ export default {
     methods: {
         addUserBet: function (scoreHome, scoreAway, matchId) {
             firebase.database().ref('users/' + this.userId + '/matchs/' + matchId).set({
-                homeTeamScoreBetted: scoreHome,
-                awayTeamScoreBetted: scoreAway,
+                homeTeamScoreBetted: parseInt(scoreHome),
+                awayTeamScoreBetted: parseInt(scoreAway),
                 status: 'notValidate'
+            });
+            firebase.database().ref('users/' + this.userId + '/matchs').update({
+                nbMatchsBetted: parseInt(this.user.matchs.nbMatchsBetted) + 1
             });
         },
         getMatchId: function (value) {
