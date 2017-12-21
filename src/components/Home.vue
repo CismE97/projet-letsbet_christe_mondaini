@@ -58,19 +58,18 @@ export default {
             fixtures: [],
             numberJourney: 38,
             journeySelected: 1,
-            usersArray: [],
-            matchsNotValidate: [],
-            userMatchsToValidate: {}
-            // match: {}
+            usersArray: []
         };
     },
     methods: {
         resultsValidation: function () {
-            // ----Récuprération des matchs notValidated + mise dans un tableau -----
+            // ----Récupération des matchs notValidated + mise dans un tableau -----
             this.$bindAsArray('usersArray', firebase.database().ref('users/'));
+            let matchsNotValidate = [];
             this.usersArray.forEach(user => {
-                this.userMatchsToValidate = {
+                let userMatchsToValidate = {
                     userId: user['.key'],
+                    nbPoints: user.nbPoints,
                     matchs: {}
                 };
                 let needToValidate = false;
@@ -81,17 +80,16 @@ export default {
                             homeTeamScoreBetted: user.matchs[index].homeTeamScoreBetted,
                             matchId: index
                         };
-                        this.userMatchsToValidate.matchs[index] = match;
+                        userMatchsToValidate.matchs[index] = match;
                         needToValidate = true;
                     }
                 }
                 if (needToValidate) {
-                    this.matchsNotValidate.push(this.userMatchsToValidate);
+                    matchsNotValidate.push(userMatchsToValidate);
                 }
             });
-
-            // -----  -----
-            this.matchsNotValidate.forEach(user => {
+            // ----- Vérification des score des matchs et attribution des points -----
+            matchsNotValidate.forEach(user => {
                 let userId = user.userId;
                 for (let index in user.matchs) {
                     let matchId = user.matchs[index].matchId;
@@ -114,17 +112,16 @@ export default {
                                     pointsToAdd = 30;
                                 }
                             }
-
                             // Augmentation du nombre de points
                             if (pointsToAdd > 0) {
+                                user.nbPoints += pointsToAdd;
                                 firebase.database().ref('users/' + userId).update({
-                                    nbPoints: parseInt(user.nbPoints) + pointsToAdd
-                                });
-                                firebase.database().ref('users/' + userId + 'matchs/' + matchId).update({
-                                    status: 'validated'
+                                    nbPoints: parseInt(user.nbPoints)
                                 });
                             }
-                            console.log(pointsToAdd);
+                            firebase.database().ref('users/' + userId + '/matchs/' + matchId).update({
+                                status: 'validated'
+                            });
                         }
                     })
                     .catch((error) => {
