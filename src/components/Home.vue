@@ -92,21 +92,40 @@ export default {
 
             // -----  -----
             this.matchsNotValidate.forEach(user => {
-                // eslint-disable-next-line
-                let userId = user.userId;                
+                let userId = user.userId;
                 for (let index in user.matchs) {
                     let matchId = user.matchs[index].matchId;
-
-                    axios.get('https://thingproxy.freeboard.io/fetch/http://api.football-data.org/v1/fixtures', {
+                    let matchToCheck = null;
+                    axios.get('https://thingproxy.freeboard.io/fetch/http://api.football-data.org/v1/fixtures/' + matchId, {
                         headers: {
                             'X-Auth-Token': 'd2c960e664ad4668bb0236ca7442bf12'
-                        },
-                        params: {
-                            fixtures: matchId
                         }
                     })
                     .then((response) => {
-                        const matchToCheck = response.data.result;
+                        matchToCheck = response.data.fixture;
+                        if (matchToCheck.status === 'FINISHED') {
+                            let pointsToAdd = 0;
+                            if ((matchToCheck.result.goalsHomeTeam === user.matchs[index].homeTeamScoreBetted) && (matchToCheck.result.goalsAwayTeam === user.matchs[index].awayTeamScoreBetted)) {
+                                pointsToAdd = 100;
+                            } else {
+                                let substractBD = user.matchs[index].homeTeamScoreBetted - user.matchs[index].awayTeamScoreBetted;
+                                let substractAPI = matchToCheck.result.goalsHomeTeam - matchToCheck.result.goalsAwayTeam;
+                                if ((substractBD > 0 && substractAPI > 0) || (substractBD === 0 && substractAPI === 0) || (substractBD < 0 && substractAPI < 0)) {
+                                    pointsToAdd = 30;
+                                }
+                            }
+
+                            // Augmentation du nombre de points
+                            if (pointsToAdd > 0) {
+                                firebase.database().ref('users/' + userId).update({
+                                    nbPoints: parseInt(user.nbPoints) + pointsToAdd
+                                });
+                                firebase.database().ref('users/' + userId + 'matchs/' + matchId).update({
+                                    status: 'validated'
+                                });
+                            }
+                            console.log(pointsToAdd);
+                        }
                     })
                     .catch((error) => {
                         this.erreur = error;
