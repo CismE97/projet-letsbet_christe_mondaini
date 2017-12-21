@@ -1,5 +1,5 @@
 <template>
-  <div class="card match">
+  <div class="card match" v-bind:class="getHTMLClassMatchCard(value.result, user.matchs[getMatchId(value)])">
     <div class="card-body ">
       <div class="row">
         <div class="col-md-4 align-self-center">
@@ -61,6 +61,17 @@ export default {
         getMatchId: function (value) {
             let link = value._links.self.href;
             return link.slice(link.lastIndexOf('/') + 1, link.length);
+        },
+        getHTMLClassMatchCard: function (result, scoreBetted) {
+            if (scoreBetted && result.goalsHomeTeam !== null && result.goalsAwayTeam !== null) {
+                let substractResult = result.goalsHomeTeam - result.goalsAwayTeam;
+                let substractBetted = scoreBetted.homeTeamScoreBetted - scoreBetted.awayTeamScoreBetted;
+                if ((substractResult > 0 && substractBetted > 0) || (substractResult === 0 && substractBetted === 0) || (substractResult < 0 && substractBetted < 0)) {
+                    return 'exactBet';
+                }
+                return 'lostBet';
+            }
+            return '';
         }
     }
 };
@@ -77,5 +88,11 @@ export default {
     }
     .matchs input {
         width: 50px;
+    }
+    .exactBet{
+        background-color: #DCE775;
+    }
+    .lostBet{
+        background-color: #EF9A9A;
     }
 </style>

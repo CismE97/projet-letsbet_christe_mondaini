@@ -89,6 +89,6 @@ export default {
         padding: 10px;
     }
     .classement-me{
-        background-color: #81C784;
+        background-color: #DCE775;
     }
 </style>
