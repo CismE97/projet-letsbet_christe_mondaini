@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/components/Home';
 import Login from '@/components/Login';
-import SignUp from '@/components/SignUp';
+import Classement from '@/components/Classement';
 
 Vue.use(Router);
 
@@ -19,9 +19,9 @@ export default new Router({
             component: Login
         },
         {
-            path: '/signUp',
-            name: 'SignUp',
-            component: SignUp
+            path: '/classement/',
+            name: 'Classement',
+            component: Classement
         }
     ]
 });

@@ -1,19 +1,19 @@
 <template>
     <div>
         <h2>Classement</h2>
-            <table class="table classement">
-                <tr>
-                    <th>N°</th>
-                    <th>Joueur</th>
-                    <th>Points</th>
-                </tr>
-                <tr  v-bind:value="userItem" v-bind:index="i" v-bind:key="i" v-for="(userItem, i) in sortUsersArray" :class="classementMe(userItem)">
-                    <td>{{userItem.position}}</td>
-                    <td>{{userItem.userName}}</td>
-                    <td>{{userItem.nbPoints}}</td>
-                </tr>
+        <table class="table classement">
+            <tr>
+                <th>N°</th>
+                <th>Joueur</th>
+                <th>Points</th>
+            </tr>
+            <tr  v-bind:value="userItem" v-bind:index="i" v-bind:key="i" v-for="(userItem, i) in sortUsersArray" :class="classementMe(userItem)">
+                <td>{{userItem.position}}</td>
+                <td>{{userItem.userName}}</td>
+                <td>{{userItem.nbPoints}}</td>
+            </tr>
         </table>
-        <p class="text-right"><a class="btn btn-outline-info" href="#">Afficher tout</a></p>
+        <p class="text-right"><router-link class="btn btn-outline-info" :to="{name:'Classement'}" >Afficher tout</router-link></p>
     </div>
 </template>
 
