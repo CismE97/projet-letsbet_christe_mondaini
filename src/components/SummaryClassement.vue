@@ -56,7 +56,7 @@ export default {
                 if (myIndex < 5) {
                     arraySorted.splice(5, arraySorted.length);
                 } else if (myIndex > arraySorted.length - 5) {
-                    arraySorted.splice(0, arraySorted.length - 5);                       // Ne joue pas !
+                    arraySorted.splice(0, arraySorted.length - 5);
                 } else {
                     for (let i = 0; i < myIndex - 2; i++) {
                         arraySorted.splice(0, 1);

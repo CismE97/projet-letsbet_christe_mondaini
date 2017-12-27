@@ -70,6 +70,7 @@ export default {
                 let userMatchsToValidate = {
                     userId: user['.key'],
                     nbPoints: user.nbPoints,
+                    nbResultsFounded: user.nbResultsFounded,
                     matchs: {}
                 };
                 let needToValidate = false;
@@ -103,8 +104,10 @@ export default {
                         matchToCheck = response.data.fixture;
                         if (matchToCheck.status === 'FINISHED') {
                             let pointsToAdd = 0;
+                            let nbExactResult = 0;
                             if ((matchToCheck.result.goalsHomeTeam === user.matchs[index].homeTeamScoreBetted) && (matchToCheck.result.goalsAwayTeam === user.matchs[index].awayTeamScoreBetted)) {
                                 pointsToAdd = 100;
+                                nbExactResult += 1;
                             } else {
                                 let substractBD = user.matchs[index].homeTeamScoreBetted - user.matchs[index].awayTeamScoreBetted;
                                 let substractAPI = matchToCheck.result.goalsHomeTeam - matchToCheck.result.goalsAwayTeam;
@@ -115,8 +118,11 @@ export default {
                             // Augmentation du nombre de points
                             if (pointsToAdd > 0) {
                                 user.nbPoints += pointsToAdd;
+                                console.log(user.nbResultsFounded);
+                                user.nbResultsFounded += nbExactResult;
                                 firebase.database().ref('users/' + userId).update({
-                                    nbPoints: parseInt(user.nbPoints)
+                                    nbPoints: parseInt(user.nbPoints),
+                                    nbResultsFounded: parseInt(user.nbResultsFounded)
                                 });
                             }
                             firebase.database().ref('users/' + userId + '/matchs/' + matchId).update({
