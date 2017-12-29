@@ -43,6 +43,8 @@ import Fixture from './Fixture';
 import SummaryClassement from './SummaryClassement';
 import axios from 'axios';
 import firebase from '../firebase';
+import Chart from 'chart.js';
+
 export default {
     name: 'Home',
     data() {
@@ -51,7 +53,7 @@ export default {
             userName: '',
             userPictureURL: '',
             nbPoints: 0,
-            nbResultsFounded: 0,
+            nbResultsFounded: 2,
 
             userLogged: '',
 
@@ -118,7 +120,6 @@ export default {
                             // Augmentation du nombre de points
                             if (pointsToAdd > 0) {
                                 user.nbPoints += pointsToAdd;
-                                console.log(user.nbResultsFounded);
                                 user.nbResultsFounded += nbExactResult;
                                 firebase.database().ref('users/' + userId).update({
                                     nbPoints: parseInt(user.nbPoints),
@@ -158,7 +159,7 @@ export default {
             });
         }
     },
-    beforeCreate() { // or mounted
+    beforeCreate() {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.userId = user.uid;                 // A mettre dans un objet
@@ -171,6 +172,21 @@ export default {
                 this.$bindAsObject('userLogged', firebase.database().ref('users/' + this.userId + '/'));
             } else {
                 this.$router.push('/login');
+            }
+        });
+    },
+    mounted() {
+        console.log(this.userLogged);
+        // eslint-disable-next-line
+        new Chart($('#chart'), {
+            type: 'doughnut',
+            data: {
+                datasets: [
+                    {
+                        backgroundColor: ['#3e95cd', '#FFFFFF'],
+                        data: [ 50, 50 ]
+                    }
+                ]
             }
         });
     },

@@ -8,7 +8,6 @@ import 'tether/dist/js/tether.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import 'bootstrap-material-design/dist/css/bootstrap-material-design.min.css';
-import Chart from 'chart.js';
 
 Vue.config.productionTip = false;
 
@@ -18,20 +17,4 @@ new Vue({
     router,
     template: '<App/>',
     components: { App }
-});
-
-$(document).ready(() => {
-    let ctx = $('#chart');
-
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            datasets: [
-                {
-                    backgroundColor: ['#3e95cd', '#FFFFFF'],
-                    data: [50, 50]
-                }
-            ]
-        }
-    });
 });
