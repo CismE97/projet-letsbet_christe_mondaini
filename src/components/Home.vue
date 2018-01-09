@@ -4,7 +4,7 @@
             <div class="col-md-2 col-4"><img v-bind:src="userPictureURL" alt="photo de profil" class="img-fluid"></div>
             <div class="col-md-6 col-8 text-left">
                 <h2>{{userName}}</h2>
-                <p>Points restants : {{userLogged.nbPoints}} <!-- <br>  Points en attente : 200 --></p>
+                <p>Points restants : {{userLogged.nbPoints}}</p>
             </div>
             <div class="col-md-4 col-sm-12 header-btns text-right">
                 <p>
@@ -16,12 +16,12 @@
         </div>
         <div class="stats">
             <div class="row text-left">
-                <div class="col-md-8 col-12">
+                <div class="col-md-6 col-12">
                     <my-SummaryClassement v-bind:userId="userId"></my-SummaryClassement>
                 </div>
-                <div class="col-md-4 col-12">
+                <div class="col-md-6 col-12">
                     <h2>Mes stats</h2>
-                    <canvas id="chart"></canvas>
+                    <line-chart :chart-data="datacollection" :nbResultsFounded="userLogged.nbResultsFounded" :nbMatchBetted="100"></line-chart>
                 </div>
             </div>
         </div>
@@ -43,9 +43,9 @@
 <script>
 import Fixture from './Fixture';
 import SummaryClassement from './SummaryClassement';
+import ResultChart from './ResultChart';
 import axios from 'axios';
 import firebase from '../firebase';
-import Chart from 'chart.js';
 
 export default {
     name: 'Home',
@@ -55,14 +55,16 @@ export default {
             userName: '',
             userPictureURL: '',
             nbPoints: 0,
-            nbResultsFounded: 2,
+            nbResultsFounded: 0,
+            nbMatchBetted: 0,
 
             userLogged: '',
 
             fixtures: [],
             numberJourney: 38,
             journeySelected: 1,
-            usersArray: []
+            usersArray: [],
+            datacollection: null
         };
     },
     methods: {
@@ -159,6 +161,17 @@ export default {
             firebase.auth().signOut().then(function () {
                 this.$router.push('/login');
             });
+        },
+        updateChart: function () {
+            this.datacollection = {
+                labels: ['Janvier', 'Février'],
+                datasets: [
+                    {
+                        backgroundColor: '#f87979',
+                        data: [this.nbMatchBetted, this.nbResultsFounded]
+                    }
+                ]
+            };
         }
     },
     beforeCreate() {
@@ -172,29 +185,20 @@ export default {
                 this.userPictureURL = user.photoURL;
                 this.loadData();
                 this.$bindAsObject('userLogged', firebase.database().ref('users/' + this.userId + '/'));
+
+                // Mise à jour du graphique
+                this.nbResultsFounded = this.userLogged.nbResultsFounded;
+                this.nbMatchBetted = this.userLogged.matchs.nbMatchsBetted;
+                this.updateChart();
             } else {
                 this.$router.push('/login');
             }
         });
     },
-    mounted() {
-        console.log(this.userLogged);
-        // eslint-disable-next-line
-        new Chart($('#chart'), {
-            type: 'doughnut',
-            data: {
-                datasets: [
-                    {
-                        backgroundColor: ['#3e95cd', '#FFFFFF'],
-                        data: [ 50, 50 ]
-                    }
-                ]
-            }
-        });
-    },
     components: {
         'my-fixture': Fixture,
-        'my-SummaryClassement': SummaryClassement
+        'my-SummaryClassement': SummaryClassement,
+        'line-chart': ResultChart
     }
 };
 </script>
@@ -219,6 +223,6 @@ export default {
         .header-btns{
             margin-top: 20px;
             text-align: center !important;
-        }
+        }   
     }
 </style>
