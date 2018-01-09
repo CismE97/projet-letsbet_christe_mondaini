@@ -2,15 +2,17 @@
     <div class="container">
         <div class="row header">
             <div class="col-md-2 col-4"><img v-bind:src="userPictureURL" alt="photo de profil" class="img-fluid"></div>
-                <div class="col-md-6 col-8 text-left">
-                    <h2>{{userName}}</h2>
-                    <p>Points restants : {{userLogged.nbPoints}} <!-- <br>  Points en attente : 200 --></p>
+            <div class="col-md-6 col-8 text-left">
+                <h2>{{userName}}</h2>
+                <p>Points restants : {{userLogged.nbPoints}} <!-- <br>  Points en attente : 200 --></p>
+            </div>
+            <div class="col-md-4 col-sm-12 header-btns text-right">
+                <p>
+                    <a class="btn btn-outline-info" href="#" v-on:click='logOut'>Se déconnecter</a>
                     <a class="btn btn-outline-info" href="#" v-on:click='resultsValidation'>Valider résultats</a>
-                </div>
-                <div class="col-md-4 col-sm-12 text-right">
-                    <p><a class="btn btn-outline-info" href="#">Mon compte</a> <a class="btn btn-outline-info" href="#" v-on:click='logOut'>Se déconnecter</a></p>
-                    <p>Nombre résultats exacts : {{userLogged.nbResultsFounded}}</p>
-                </div>
+                </p>
+                <p>Nombre résultats exacts : {{userLogged.nbResultsFounded}}</p>
+            </div>
         </div>
         <div class="stats">
             <div class="row text-left">
@@ -200,10 +202,23 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .header{
+        padding-bottom: 20px;
         margin-bottom: 5%;
         border-bottom: 1px solid #000;
     }
+    .header .header-btns .btn {
+        min-width: 200px;
+    }
+    .header .buttons a{
+        font-size: 0.8em;
+    }
     .matchDayFilter{
         margin-bottom: 20px;
+    }
+    @media (max-width: 991px) {
+        .header-btns{
+            margin-top: 20px;
+            text-align: center !important;
+        }
     }
 </style>
