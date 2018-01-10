@@ -20,10 +20,10 @@
         </div>
         <div class="stats">
             <div class="row text-left">
-                <div class="col-md-6 col-12">
+                <div class="col-md-8 col-12">
                     <my-SummaryClassement v-bind:userId="userId"></my-SummaryClassement>
                 </div>
-                <div class="col-md-6 col-12">
+                <div class="col-md-4 col-12">
                     <h2>Mes stats</h2>
                     <line-chart :chart-data="datacollection"></line-chart>
                 </div>
@@ -90,11 +90,11 @@ export default {
                 this.userLogged = {matchs: { nbMatchsBetted: 0 }};
             }
             return {
-                labels: ['Janvier', 'Février'],
+                labels: ['Résultats exacts'],
                 datasets: [
                     {
-                        backgroundColor: '#f87979',
-                        data: [this.userLogged.nbResultsFounded, this.userLogged.matchs.nbMatchsBetted]
+                        backgroundColor: ['#66BB6A', '#DCE775'],
+                        data: [this.userLogged.nbResultsFounded, this.userLogged.matchs.nbMatchsBetted - this.userLogged.nbResultsFounded]
                     }
                 ]
             };
@@ -231,7 +231,6 @@ export default {
                 this.userPictureURL = user.photoURL;
                 this.currentJourney();
                 this.$bindAsObject('userLogged', firebase.database().ref('users/' + this.userId + '/'));
-                // this.updateChart();
             } else {
                 this.$router.push('/login');
             }
