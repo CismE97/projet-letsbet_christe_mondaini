@@ -4,11 +4,7 @@
             <div class="col-md-2 col-4"><img v-bind:src="userPictureURL" alt="photo de profil" class="img-fluid"></div>
             <div class="col-md-6 col-8 text-left">
                 <h2>{{userName}}</h2>
-<<<<<<< HEAD
                 <p>Points restants : {{userLogged.nbPoints}}<br>Nombre résultats exacts : {{userLogged.nbResultsFounded}}</p>
-=======
-                <p>Points restants : {{userLogged.nbPoints}}</p>
->>>>>>> a718a3a9131c94755619c2c5a307492f62e5df1b
             </div>
             <div class="col-md-4 col-sm-12 header-btns text-right">
                 <p>
