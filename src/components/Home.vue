@@ -4,14 +4,14 @@
             <div class="col-md-2 col-4"><img v-bind:src="userPictureURL" alt="photo de profil" class="img-fluid"></div>
             <div class="col-md-6 col-8 text-left">
                 <h2>{{userName}}</h2>
-                <p>Points restants : {{userLogged.nbPoints}} <!-- <br>  Points en attente : 200 --></p>
+                <p>Points restants : {{userLogged.nbPoints}}<br>Nombre résultats exacts : {{userLogged.nbResultsFounded}}</p>
             </div>
             <div class="col-md-4 col-sm-12 header-btns text-right">
                 <p>
                     <a class="btn btn-outline-info" href="#" v-on:click='logOut'>Se déconnecter</a>
                     <a class="btn btn-outline-info" href="#" v-on:click='resultsValidation'>Valider résultats</a>
                 </p>
-                <p>Nombre résultats exacts : {{userLogged.nbResultsFounded}}</p>
+                
             </div>
         </div>
         <div class="stats">
@@ -28,11 +28,25 @@
         <div class="row matchs">
             <div class="col-md-12">
                 <h2>Matchs diponibles</h2>
-                <div class="matchDayFilter">
-                    <select class="form-control form-control-lg" v-model="journeySelected" @change="loadData">
-                        <option v-bind:value="p" v-bind:key="i" v-for="(p,i) in numberJourney">Journée {{p}}</option>
-                    </select>
-                </div>
+            </div>
+        </div>
+
+        <div class="row matchDayFilter">
+            <div class="col-md-4">
+                <button value="button" class="btn btn-light" v-on:click='previousMatchday'>Précédent</button>
+            </div>
+            <div class="col-md-4">
+                <select class="form-control form-control-lg" v-model="journeySelected" @change="loadData">
+                    <option v-bind:value="p" v-bind:key="i" v-for="(p,i) in numberJourney">Journée {{p}}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button value="button" class="btn btn-light" v-on:click='nextMatchday'>Suivant</button>
+            </div>
+        </div>
+
+        <div class="row matchs">
+            <div class="col-md-12">
                 <transition-group tag="div" name="list" class="fixtures">
                     <my-fixture v-bind:user="userLogged" v-bind:userId="userId" v-bind:value="p" v-bind:index="i" v-bind:key="i" v-for="(p, i) in fixtures"></my-fixture>
                 </transition-group> 
@@ -61,11 +75,35 @@ export default {
 
             fixtures: [],
             numberJourney: 38,
-            journeySelected: 1,
+            journeySelected: null,
             usersArray: []
         };
     },
     methods: {
+        nextMatchday: function () {
+            this.journeySelected++;
+            this.loadData();
+        },
+        previousMatchday: function () {
+            this.journeySelected--;
+            this.loadData();
+        },
+        currentJourney: function () {
+            axios.get('http://api.football-data.org/v1/competitions/445', {
+                headers: {
+                    'X-Auth-Token': 'd2c960e664ad4668bb0236ca7442bf12'
+                }
+            })
+            .then((response) => {
+                this.journeySelected = response.data.currentMatchday;
+                console.log(response.data.currentMatchday);
+                console.log(this.journeySelected);
+                this.loadData();
+            })
+            .catch((error) => {
+                this.erreur = error;
+            });
+        },
         resultsValidation: function () {
             // ----Récupération des matchs notValidated + mise dans un tableau -----
             this.$bindAsArray('usersArray', firebase.database().ref('users/'));
@@ -170,7 +208,7 @@ export default {
                     userName: user.displayName
                 });
                 this.userPictureURL = user.photoURL;
-                this.loadData();
+                this.currentJourney();
                 this.$bindAsObject('userLogged', firebase.database().ref('users/' + this.userId + '/'));
             } else {
                 this.$router.push('/login');
