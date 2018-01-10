@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-md-6 col-12">
                     <h2>Mes stats</h2>
-                    <line-chart :chart-data="datacollection" :nbResultsFounded="userLogged.nbResultsFounded" :nbMatchBetted="100"></line-chart>
+                    <line-chart :chart-data="datacollection"></line-chart>
                 </div>
             </div>
         </div>
@@ -58,14 +58,29 @@ export default {
             nbResultsFounded: 0,
             nbMatchBetted: 0,
 
-            userLogged: '',
+            userLogged: {matchs: { nbMatchsBetted: 0 }},
 
             fixtures: [],
             numberJourney: 38,
             journeySelected: 1,
-            usersArray: [],
-            datacollection: null
+            usersArray: []
         };
+    },
+    computed: {
+        datacollection() {
+            if (!this.userLogged.matchs) {
+                this.userLogged = {matchs: { nbMatchsBetted: 0 }};
+            }
+            return {
+                labels: ['Janvier', 'Février'],
+                datasets: [
+                    {
+                        backgroundColor: '#f87979',
+                        data: [this.userLogged.nbResultsFounded, this.userLogged.matchs.nbMatchsBetted]
+                    }
+                ]
+            };
+        }
     },
     methods: {
         resultsValidation: function () {
@@ -161,17 +176,6 @@ export default {
             firebase.auth().signOut().then(function () {
                 this.$router.push('/login');
             });
-        },
-        updateChart: function () {
-            this.datacollection = {
-                labels: ['Janvier', 'Février'],
-                datasets: [
-                    {
-                        backgroundColor: '#f87979',
-                        data: [this.nbMatchBetted, this.nbResultsFounded]
-                    }
-                ]
-            };
         }
     },
     beforeCreate() {
@@ -185,11 +189,7 @@ export default {
                 this.userPictureURL = user.photoURL;
                 this.loadData();
                 this.$bindAsObject('userLogged', firebase.database().ref('users/' + this.userId + '/'));
-
-                // Mise à jour du graphique
-                this.nbResultsFounded = this.userLogged.nbResultsFounded;
-                this.nbMatchBetted = this.userLogged.matchs.nbMatchsBetted;
-                this.updateChart();
+                // this.updateChart();
             } else {
                 this.$router.push('/login');
             }
