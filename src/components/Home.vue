@@ -102,15 +102,19 @@ export default {
     },
     methods: {
         nextMatchday: function () {
-            this.journeySelected++;
-            this.loadData();
+            if (this.journeySelected < 38) {
+                this.journeySelected++;
+                this.loadData();
+            }
         },
         previousMatchday: function () {
-            this.journeySelected--;
-            this.loadData();
+            if (this.journeySelected > 1) {
+                this.journeySelected--;
+                this.loadData();
+            }
         },
         currentJourney: function () {
-            axios.get('http://api.football-data.org/v1/competitions/445', {
+            axios.get('https://thingproxy.freeboard.io/fetch/http://api.football-data.org/v1/competitions/445', {
                 headers: {
                     'X-Auth-Token': 'd2c960e664ad4668bb0236ca7442bf12'
                 }
