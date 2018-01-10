@@ -4,7 +4,11 @@
             <div class="col-md-2 col-4"><img v-bind:src="userPictureURL" alt="photo de profil" class="img-fluid"></div>
             <div class="col-md-6 col-8 text-left">
                 <h2>{{userName}}</h2>
+<<<<<<< HEAD
                 <p>Points restants : {{userLogged.nbPoints}}<br>Nombre résultats exacts : {{userLogged.nbResultsFounded}}</p>
+=======
+                <p>Points restants : {{userLogged.nbPoints}}</p>
+>>>>>>> a718a3a9131c94755619c2c5a307492f62e5df1b
             </div>
             <div class="col-md-4 col-sm-12 header-btns text-right">
                 <p>
@@ -16,12 +20,12 @@
         </div>
         <div class="stats">
             <div class="row text-left">
-                <div class="col-md-8 col-12">
+                <div class="col-md-6 col-12">
                     <my-SummaryClassement v-bind:userId="userId"></my-SummaryClassement>
                 </div>
-                <div class="col-md-4 col-12">
+                <div class="col-md-6 col-12">
                     <h2>Mes stats</h2>
-                    <canvas id="chart"></canvas>
+                    <line-chart :chart-data="datacollection"></line-chart>
                 </div>
             </div>
         </div>
@@ -57,9 +61,9 @@
 <script>
 import Fixture from './Fixture';
 import SummaryClassement from './SummaryClassement';
+import ResultChart from './ResultChart';
 import axios from 'axios';
 import firebase from '../firebase';
-import Chart from 'chart.js';
 
 export default {
     name: 'Home',
@@ -69,15 +73,32 @@ export default {
             userName: '',
             userPictureURL: '',
             nbPoints: 0,
-            nbResultsFounded: 2,
+            nbResultsFounded: 0,
+            nbMatchBetted: 0,
 
-            userLogged: '',
+            userLogged: {matchs: { nbMatchsBetted: 0 }},
 
             fixtures: [],
             numberJourney: 38,
             journeySelected: null,
             usersArray: []
         };
+    },
+    computed: {
+        datacollection() {
+            if (!this.userLogged.matchs) {
+                this.userLogged = {matchs: { nbMatchsBetted: 0 }};
+            }
+            return {
+                labels: ['Janvier', 'Février'],
+                datasets: [
+                    {
+                        backgroundColor: '#f87979',
+                        data: [this.userLogged.nbResultsFounded, this.userLogged.matchs.nbMatchsBetted]
+                    }
+                ]
+            };
+        }
     },
     methods: {
         nextMatchday: function () {
@@ -210,29 +231,16 @@ export default {
                 this.userPictureURL = user.photoURL;
                 this.currentJourney();
                 this.$bindAsObject('userLogged', firebase.database().ref('users/' + this.userId + '/'));
+                // this.updateChart();
             } else {
                 this.$router.push('/login');
             }
         });
     },
-    mounted() {
-        console.log(this.userLogged);
-        // eslint-disable-next-line
-        new Chart($('#chart'), {
-            type: 'doughnut',
-            data: {
-                datasets: [
-                    {
-                        backgroundColor: ['#3e95cd', '#FFFFFF'],
-                        data: [ 50, 50 ]
-                    }
-                ]
-            }
-        });
-    },
     components: {
         'my-fixture': Fixture,
-        'my-SummaryClassement': SummaryClassement
+        'my-SummaryClassement': SummaryClassement,
+        'line-chart': ResultChart
     }
 };
 </script>
@@ -257,6 +265,6 @@ export default {
         .header-btns{
             margin-top: 20px;
             text-align: center !important;
-        }
+        }   
     }
 </style>
