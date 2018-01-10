@@ -47,9 +47,12 @@
 
         <div class="row matchs">
             <div class="col-md-12">
+                <div v-if="errorBetDetected" class="alert alert-danger" role="alert">
+                    Veuillez vérifier votre pari !
+                </div>
                 <transition-group tag="div" name="list" class="fixtures">
-                    <my-fixture v-bind:user="userLogged" v-bind:userId="userId" v-bind:value="p" v-bind:index="i" v-bind:key="i" v-for="(p, i) in fixtures"></my-fixture>
-                </transition-group> 
+                    <my-fixture v-bind:errorBet.sync="errorBetDetected" v-bind:user="userLogged" v-bind:userId="userId" v-bind:value="p" v-bind:index="i" v-bind:key="i" v-for="(p, i) in fixtures"></my-fixture>
+                </transition-group>
             </div>
         </div>
     </div>
@@ -75,6 +78,7 @@ export default {
             userLogged: {matchs: { nbMatchsBetted: 0 }},
 
             fixtures: [],
+            errorBetDetected: false,
             numberJourney: 38,
             journeySelected: null,
             usersArray: []

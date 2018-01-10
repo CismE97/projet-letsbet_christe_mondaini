@@ -37,7 +37,7 @@ export default {
             scoreAway: null
         };
     },
-    props: ['value', 'index', 'userId', 'user'],
+    props: ['value', 'index', 'userId', 'user', 'errorBet'],
     filters: {
         dateFormat: function (value) {
             if (value) {
@@ -48,14 +48,22 @@ export default {
     },
     methods: {
         addUserBet: function (scoreHome, scoreAway, matchId) {
-            firebase.database().ref('users/' + this.userId + '/matchs/' + matchId).set({
-                homeTeamScoreBetted: parseInt(scoreHome),
-                awayTeamScoreBetted: parseInt(scoreAway),
-                status: 'notValidate'
-            });
-            firebase.database().ref('users/' + this.userId + '/matchs').update({
-                nbMatchsBetted: parseInt(this.user.matchs.nbMatchsBetted) + 1
-            });
+            console.log(this.errorBet);
+            if (scoreHome >= 0 && scoreAway >= 0) {
+                firebase.database().ref('users/' + this.userId + '/matchs/' + matchId).set({
+                    homeTeamScoreBetted: parseInt(scoreHome),
+                    awayTeamScoreBetted: parseInt(scoreAway),
+                    status: 'notValidate'
+                });
+                firebase.database().ref('users/' + this.userId + '/matchs').update({
+                    nbMatchsBetted: parseInt(this.user.matchs.nbMatchsBetted) + 1
+                });
+                this.$emit('update:errorBet', false);
+            } else {
+                console.log(this.errorBet);
+                this.$emit('update:errorBet', true);
+            }
+            console.log(this.errorBet);
         },
         getMatchId: function (value) {
             let link = value._links.self.href;
