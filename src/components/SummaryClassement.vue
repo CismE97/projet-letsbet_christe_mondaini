@@ -39,7 +39,6 @@ export default {
                 return 0;
             });
             arraySorted.reverse();
-
             if (arraySorted.length < 5) {
                 return arraySorted;
             } else {
@@ -51,7 +50,6 @@ export default {
                     }
                     arraySorted[i]['position'] = i + 1;
                 }
-
                 if (myIndex < 5) {
                     arraySorted.splice(5, arraySorted.length);
                 } else if (myIndex > arraySorted.length - 5) {
@@ -64,7 +62,6 @@ export default {
                         arraySorted.splice(i, 1);
                     }
                 }
-
                 return arraySorted;
             }
         }
@@ -77,7 +74,7 @@ export default {
             return '';
         }
     },
-    created() {
+    mounted() {
         this.$bindAsArray('usersArray', firebase.database().ref('users/'));
     }
 };
