@@ -12,7 +12,8 @@ export default {
       mounted() {
           let options = {
               legend: {
-                  position: 'bottom'
+                  position: 'bottom',
+                  onClick: (e) => e.stopPropagation()
               }
           };
           // Overwriting base render method with actual data and options

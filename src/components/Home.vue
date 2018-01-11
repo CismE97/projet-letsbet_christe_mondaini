@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div v-bind:class="{'error' : errorBetDetected }" class="alert alert-danger row" role="alert">
-            <div class="col-10">Veuillez vérifier votre pari !</div>
+            <div class="col-10 alert-text">Veuillez vérifier votre pari !</div>
             <div class="col-2"><button href="#" v-on:click="errorBetDetected = false" class="btn btn-light">X</button></div>
         </div>
         <div class="row header">
@@ -21,39 +21,41 @@
         <div class="stats">
             <div class="row text-left">
                 <div class="col-md-8 col-12">
+                    <h2 class="title">Classement</h2>
                     <my-SummaryClassement v-bind:userId="userId"></my-SummaryClassement>
                 </div>
                 <div class="col-md-4 col-12">
-                    <h2>Mes stats</h2>
+                    <h2 class="title">Mes stats</h2>
                     <line-chart :chart-data="datacollection"></line-chart>
                 </div>
             </div>
         </div>
-        <div class="row matchs">
-            <div class="col-md-12">
-                <h2>Matchs diponibles</h2>
+        <div class="matchs">
+            <div class="row">
+                <div class="col-md-12 text-left">
+                    <h2 class="title">Matchs diponibles</h2>
+                </div>
             </div>
-        </div>
+            <div class="row matchDayFilter">
+                <div class="col-4">
+                    <button value="button" class="btn btn-light btn-lg" v-on:click='previousMatchday'>Précédent</button>
+                </div>
+                <div class="col-4">
+                    <select class="form-control form-control-lg" v-model="journeySelected" @change="loadData">
+                        <option v-bind:value="p" v-bind:key="i" v-for="(p,i) in numberJourney">Journée {{p}}</option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <button value="button" class="btn btn-light btn-lg" v-on:click='nextMatchday'>Suivant</button>
+                </div>
+            </div>
 
-        <div class="row matchDayFilter">
-            <div class="col-md-4">
-                <button value="button" class="btn btn-light" v-on:click='previousMatchday'>Précédent</button>
-            </div>
-            <div class="col-md-4">
-                <select class="form-control form-control-lg" v-model="journeySelected" @change="loadData">
-                    <option v-bind:value="p" v-bind:key="i" v-for="(p,i) in numberJourney">Journée {{p}}</option>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <button value="button" class="btn btn-light" v-on:click='nextMatchday'>Suivant</button>
-            </div>
-        </div>
-
-        <div class="row matchs">
-            <div class="col-md-12">
-                <transition-group tag="div" name="list" class="fixtures">
-                    <my-fixture v-bind:errorBet.sync="errorBetDetected" v-bind:user="userLogged" v-bind:userId="userId" v-bind:value="p" v-bind:index="i" v-bind:key="i" v-for="(p, i) in fixtures"></my-fixture>
-                </transition-group>
+            <div class="row">
+                <div class="col-md-12">
+                    <transition-group tag="div" name="list" class="fixtures">
+                        <my-fixture v-bind:errorBet.sync="errorBetDetected" v-bind:user="userLogged" v-bind:userId="userId" v-bind:value="p" v-bind:index="i" v-bind:key="i" v-for="(p, i) in fixtures"></my-fixture>
+                    </transition-group>
+                </div>
             </div>
         </div>
     </div>
@@ -253,7 +255,7 @@ export default {
 <style scoped>
     .header{
         padding-bottom: 20px;
-        margin-bottom: 5%;
+        margin-bottom: 3%;
         border-bottom: 1px solid #000;
     }
     .header .header-btns .btn {
@@ -262,8 +264,14 @@ export default {
     .header .buttons a{
         font-size: 0.8em;
     }
+    .title{
+        margin-bottom: 20px;
+    }
     .matchDayFilter{
         margin-bottom: 20px;
+    }
+    .matchs{
+        margin-top: 3%;
     }
     .alert{
         display: none;
@@ -275,6 +283,10 @@ export default {
         right: 0;
         z-index: 1;
         text-align: left;
+        vertical-align: middle;
+    }
+    .alert .alert-text{
+        margin: auto;
     }
     .error{
         display: flex;

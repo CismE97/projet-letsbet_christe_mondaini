@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h2>Classement</h2>
         <table class="table classement">
             <tr>
                 <th>N°</th>
