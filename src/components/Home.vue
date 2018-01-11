@@ -6,7 +6,10 @@
                 <div class="col-2"><button href="#" v-on:click="errorBetDetected = false" class="btn btn-light">X</button></div>
             </div>
             <div class="row header">
-                <div class="col-md-2 col-4"><img v-bind:src="userPictureURL" alt="photo de profil" class="img-fluid"></div>
+                <div class="col-md-2 col-4">
+                    <img v-if="userPictureURL !== null" v-bind:src="userPictureURL" alt="photo de profil" class="img-fluid">
+                    <img v-else alt="photo de profil" v-bind:src="'https://robohash.org/'+ userId" class="img-fluid">
+                </div>
                 <div class="col-md-6 col-8 text-left">
                     <h2>{{userName}}</h2>
                     <p>Points restants : {{userLogged.nbPoints}}<br>Nombre résultats exacts : {{userLogged.nbResultsFounded}}</p>

@@ -77,7 +77,6 @@ export default {
             }
         },
         addUserBet: function (scoreHome, scoreAway, matchId) {
-            console.log(this.errorBet);
             if (scoreHome >= 0 && scoreAway >= 0) {
                 firebase.database().ref('users/' + this.userId + '/matchs/' + matchId).set({
                     homeTeamScoreBetted: parseInt(scoreHome),
@@ -89,10 +88,8 @@ export default {
                 });
                 this.$emit('update:errorBet', false);
             } else {
-                console.log(this.errorBet);
                 this.$emit('update:errorBet', true);
             }
-            console.log(this.errorBet);
         },
         getMatchId: function (value) {
             let link = value._links.self.href;
