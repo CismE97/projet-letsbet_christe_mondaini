@@ -1,29 +1,41 @@
 <template>
-  <div class="card match" v-bind:class="getHTMLClassMatchCard(value.result, user.matchs[getMatchId(value)])">
-    <div class="card-body ">
-      <div class="row">
-        <div class="col-lg-5 align-self-center teams">
-            <p class="text-center"><img :id="value.homeTeamName" width="50" height="50"><strong> {{value.homeTeamName}} VS {{value.awayTeamName}} </strong><img :id="value.awayTeamName" width="50" height="50"></p>
+  <div class="col-lg-6">
+    <div class="card match " v-bind:class="getHTMLClassMatchCard(value.result, user.matchs[getMatchId(value)])">
+        <div class="card-body">
+        <div class="row">
+             <div class="col-lg-12 align-self-center teams">
+                <p class="text-center"><img :id="value.homeTeamName" width="75" height="75"> <img :id="value.awayTeamName" width="75" height="75"></p>
+            </div>
+            <div class="col-lg-12 align-self-center teams">
+                <p class="text-center"><strong>{{value.homeTeamName}} VS {{value.awayTeamName}}</strong></p>
+            </div>
+            <div class="col-lg-12 align-self-center date">
+                <p class="text-center">{{ value.date | dateFormat }}</p>
+            </div>
+            <div v-if="(value.status != 'SCHEDULED' && value.status != 'TIMED') || user.matchs[getMatchId(value)]" class="col-lg-12">
+            <div>
+                    <p v-if="value.status = 'FINISHED'">Résultat : {{value.result.goalsHomeTeam}} - {{value.result.goalsAwayTeam}}</p>
+                    <p v-if="user.matchs[getMatchId(value)]" >Mon Paris : {{user.matchs[getMatchId(value)].homeTeamScoreBetted}} - {{user.matchs[getMatchId(value)].awayTeamScoreBetted}}</p>
+            </div>
+            </div>
+            <div v-else class="col-lg-12">
+                    <form class="form">
+                        <div class="row">
+                            <div class="col-lg-12 align-items-center">
+                                <input type="number" class="form-control text-center" id="scoreHome" v-model="scoreHome" placeholder="0" min="0"> :
+                                <input type="number" class="form-control text-center" id="scoreAway" v-model="scoreAway" placeholder="0" min="0">
+                                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 align-items-center">
+                                <button v-on:click="addUserBet(scoreHome, scoreAway, getMatchId(value))" type="button" class="btn btn-outline-info">Parier</button>
+                            </div>
+                        </div>
+                    </form>  
+            </div>
         </div>
-        <div class="col-lg-2 align-self-center date">
-            <p class="text-center">{{ value.date | dateFormat }}</p>
         </div>
-        <div v-if="(value.status != 'SCHEDULED' && value.status != 'TIMED') || user.matchs[getMatchId(value)]" class="col-lg-4">
-          <div>
-                <p v-if="value.status = 'FINISHED'">Résultat : {{value.result.goalsHomeTeam}} - {{value.result.goalsAwayTeam}}</p>
-                <p v-if="user.matchs[getMatchId(value)]" >Mon Paris : {{user.matchs[getMatchId(value)].homeTeamScoreBetted}} - {{user.matchs[getMatchId(value)].awayTeamScoreBetted}}</p>
-          </div>
-          </div>
-          <div v-else class="col-lg-4">
-                <form class="form-inline align-items-center">
-                    <div class="col-12">
-                        <input type="number" class="form-control text-center" id="scoreHome" v-model="scoreHome" placeholder="0" min="0"> :
-                        <input type="number" class="form-control text-center" id="scoreAway" v-model="scoreAway" placeholder="0" min="0">
-                        <button v-on:click="addUserBet(scoreHome, scoreAway, getMatchId(value))" type="button" class="btn btn-outline-info">Parier</button>
-                    </div>
-                </form>  
-          </div>
-      </div>
     </div>
   </div>
 </template>
@@ -116,14 +128,16 @@ export default {
     .matchs input {
         display: inline-block;
         max-width: 50px;
+        margin-bottom: 20px;
     }
-    .matchs .form-inline{
-        text-align: center;
+     .matchs button {
+       min-width: 200px;
     }
     .exactBet{
-        background-color: #DCE775;
+        background-color: var(--primary-color);
     }
     .lostBet{
-        background-color: #EF9A9A;
+        background-color: var(--secondary-color);
+        color:white;
     }
 </style>

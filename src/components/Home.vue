@@ -1,63 +1,66 @@
 <template>
-    <div class="container">
-        <div v-bind:class="{'error' : errorBetDetected }" class="alert alert-danger row" role="alert">
-            <div class="col-10 alert-text">Veuillez vérifier votre pari !</div>
-            <div class="col-2"><button href="#" v-on:click="errorBetDetected = false" class="btn btn-light">X</button></div>
-        </div>
-        <div class="row header">
-            <div class="col-md-2 col-4"><img v-bind:src="userPictureURL" alt="photo de profil" class="img-fluid"></div>
-            <div class="col-md-6 col-8 text-left">
-                <h2>{{userName}}</h2>
-                <p>Points restants : {{userLogged.nbPoints}}<br>Nombre résultats exacts : {{userLogged.nbResultsFounded}}</p>
+    <div>
+        <div class="container">
+            <div v-bind:class="{'error' : errorBetDetected }" class="alert alert-danger row" role="alert">
+                <div class="col-10 alert-text">Veuillez vérifier votre pari !</div>
+                <div class="col-2"><button href="#" v-on:click="errorBetDetected = false" class="btn btn-light">X</button></div>
             </div>
-            <div class="col-md-4 col-sm-12 header-btns text-right">
-                <p>
-                    <a class="btn btn-outline-info" href="#" v-on:click='logOut'>Se déconnecter</a>
-                    <a class="btn btn-outline-info" href="#" v-on:click='resultsValidation'>Valider résultats</a>
-                </p>
-                
-            </div>
-        </div>
-        <div class="stats">
-            <div class="row text-left">
-                <div class="col-md-8 col-12">
-                    <h2 class="title">Classement</h2>
-                    <my-SummaryClassement v-bind:userId="userId"></my-SummaryClassement>
+            <div class="row header">
+                <div class="col-md-2 col-4"><img v-bind:src="userPictureURL" alt="photo de profil" class="img-fluid"></div>
+                <div class="col-md-6 col-8 text-left">
+                    <h2>{{userName}}</h2>
+                    <p>Points restants : {{userLogged.nbPoints}}<br>Nombre résultats exacts : {{userLogged.nbResultsFounded}}</p>
                 </div>
-                <div class="col-md-4 col-12">
-                    <h2 class="title">Mes stats</h2>
-                    <line-chart :chart-data="datacollection"></line-chart>
+                <div class="col-md-4 col-sm-12 header-btns text-right">
+                    <p>
+                        <a class="btn btn-outline-info" href="#" v-on:click='logOut'>Se déconnecter</a>
+                        <a class="btn btn-outline-info" href="#" v-on:click='resultsValidation'>Valider résultats</a>
+                    </p>
+                    
                 </div>
             </div>
-        </div>
-        <div class="matchs">
-            <div class="row">
-                <div class="col-md-12 text-left">
-                    <h2 class="title">Matchs diponibles</h2>
+            <div class="stats">
+                <div class="row text-left">
+                    <div class="col-md-8 col-12">
+                        <h2 class="title">Classement</h2>
+                        <my-SummaryClassement v-bind:userId="userId"></my-SummaryClassement>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <h2 class="title">Mes stats</h2>
+                        <line-chart :chart-data="datacollection"></line-chart>
+                    </div>
                 </div>
             </div>
-            <div class="row matchDayFilter">
-                <div class="col-4">
-                    <button value="button" class="btn btn-light btn-lg" v-on:click='previousMatchday'>Précédent</button>
+            <div class="matchs">
+                <div class="row">
+                    <div class="col-md-12 text-left">
+                        <h2 class="title text-center">Matchs diponibles</h2>
+                    </div>
                 </div>
-                <div class="col-4">
-                    <select class="form-control form-control-lg" v-model="journeySelected" @change="loadData">
-                        <option v-bind:value="p" v-bind:key="i" v-for="(p,i) in numberJourney">Journée {{p}}</option>
-                    </select>
+                <div class="row matchDayFilter">
+                    <div class="col-4">
+                        <button value="button" class="btn btn-outline-info btn-lg" v-on:click='previousMatchday'>Précédent</button>
+                    </div>
+                    <div class="col-4">
+                        <select class="form-control form-control-lg" v-model="journeySelected" @change="loadData">
+                            <option v-bind:value="p" v-bind:key="i" v-for="(p,i) in numberJourney">Journée {{p}}</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <button value="button" class="btn btn-outline-info btn-lg" v-on:click='nextMatchday'>Suivant</button>
+                    </div>
                 </div>
-                <div class="col-4">
-                    <button value="button" class="btn btn-light btn-lg" v-on:click='nextMatchday'>Suivant</button>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <transition-group tag="div" name="list" class="fixtures">
-                        <my-fixture  v-bind:errorBet.sync="errorBetDetected" v-bind:user="userLogged" v-bind:userId="userId" v-bind:value="p" v-bind:index="i" v-bind:key="i" v-bind:teamImage="teamImage" v-for="(p, i) in fixtures"></my-fixture>
-                    </transition-group>
+                <div class="row">
+                    <div class="col-md-12">
+                        <transition-group tag="div" name="list" class="fixtures row">
+                            <my-fixture  v-bind:errorBet.sync="errorBetDetected" v-bind:user="userLogged" v-bind:userId="userId" v-bind:value="p" v-bind:index="i" v-bind:key="i" v-bind:teamImage="teamImage" v-for="(p, i) in fixtures"></my-fixture>
+                        </transition-group>
+                    </div>
                 </div>
             </div>
         </div>
+        <my-footer></my-footer>
     </div>
 </template>
 <script>
@@ -66,6 +69,7 @@ import SummaryClassement from './SummaryClassement';
 import ResultChart from './ResultChart';
 import axios from 'axios';
 import firebase from '../firebase';
+import Footer from './footer';
 
 export default {
     name: 'Home',
@@ -98,7 +102,8 @@ export default {
                 labels: ['Résultats exacts'],
                 datasets: [
                     {
-                        backgroundColor: ['#66BB6A', '#DCE775'],
+                        // backgroundColor: ['#66BB6A', '#DCE775'],
+                        backgroundColor: ['#EAF205', '#F2055C'],
                         data: [this.userLogged.nbResultsFounded, this.userLogged.matchs.nbMatchsBetted - this.userLogged.nbResultsFounded]
                     }
                 ]
@@ -267,7 +272,8 @@ export default {
     components: {
         'my-fixture': Fixture,
         'my-SummaryClassement': SummaryClassement,
-        'line-chart': ResultChart
+        'line-chart': ResultChart,
+        'my-footer': Footer
     }
 };
 </script>

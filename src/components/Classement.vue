@@ -1,23 +1,30 @@
 <template>
-   <div class="container">
-        <h2>Classement général</h2>
-        <table class="table classement">
-            <tr>
-                <th>N°</th>
-                <th>Joueur</th>
-                <th>Points</th>
-            </tr>
-            <tr  v-bind:value="userItem" v-bind:index="i" v-bind:key="i" v-for="(userItem, i) in sortUsersArray" :class="classementMe(userItem)">
-                <td>{{i+1}}</td>
-                <td><img v-bind:src="'https://robohash.org/'+ i" class="img-responsive"/>{{userItem.userName}}</td>
-                <td>{{userItem.nbPoints}}</td>
-            </tr>
-        </table>
+    <div class="page">
+        <div class="container">
+            <p class="text-left">
+               <router-link class="btn btn-outline-info" :to="{name:'Home'}" >Retour</router-link>
+            </p>
+            <h2>Classement général</h2>
+            <table class="table classement">
+                <tr>
+                    <th>N°</th>
+                    <th>Joueur</th>
+                    <th>Points</th>
+                </tr>
+                <tr  v-bind:value="userItem" v-bind:index="i" v-bind:key="i" v-for="(userItem, i) in sortUsersArray" :class="classementMe(userItem)">
+                    <td>{{i+1}}</td>
+                    <td>{{userItem.userName}}</td>
+                    <td>{{userItem.nbPoints}}</td>
+                </tr>
+            </table>
+        </div>
+        <my-footer></my-footer>
     </div>
 </template>
 
 <script>
 import firebase from '../firebase';
+import Footer from './footer';
 export default {
     name: 'Home',
     data() {
@@ -57,6 +64,9 @@ export default {
             }
         });
         this.$bindAsArray('usersArray', firebase.database().ref('users/'));
+    },
+    components: {
+        'my-footer': Footer
     }
 };
 </script>
@@ -70,6 +80,14 @@ export default {
         max-height: 100px;
     }
     .classement-me{
-        background-color: #DCE775;
+        background-color:var(--primary-color);
+    }
+    .page{
+        display: flex;
+        min-height: 95vh;
+        flex-direction: column;
+    }
+    .container{
+        flex:1; 
     }
 </style>
