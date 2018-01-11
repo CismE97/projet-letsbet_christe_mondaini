@@ -134,7 +134,7 @@ export default {
         background-color: var(--primary-color) !important;
     }
     .lostBet{
-        background-color: var(--secondary-color);
+        background-color: var(--secondary-color) !important;
         color:white;
     }
 </style>
