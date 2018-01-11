@@ -1,5 +1,9 @@
 <template>
     <div class="container">
+        <div v-bind:class="{'error' : errorBetDetected }" class="alert alert-danger row" role="alert">
+            <div class="col-10">Veuillez vérifier votre pari !</div>
+            <div class="col-2"><button href="#" v-on:click="errorBetDetected = false" class="btn btn-light">X</button></div>
+        </div>
         <div class="row header">
             <div class="col-md-2 col-4"><img v-bind:src="userPictureURL" alt="photo de profil" class="img-fluid"></div>
             <div class="col-md-6 col-8 text-left">
@@ -48,7 +52,7 @@
         <div class="row matchs">
             <div class="col-md-12">
                 <transition-group tag="div" name="list" class="fixtures">
-                    <my-fixture v-bind:user="userLogged" v-bind:userId="userId" v-bind:value="p" v-bind:index="i" v-bind:key="i" v-bind:teamImage="teamImage" v-for="(p, i) in fixtures"></my-fixture>
+                    <my-fixture  v-bind:errorBet.sync="errorBetDetected" v-bind:user="userLogged" v-bind:userId="userId" v-bind:value="p" v-bind:index="i" v-bind:key="i" v-bind:teamImage="teamImage" v-for="(p, i) in fixtures"></my-fixture>
                 </transition-group> 
             </div>
         </div>
@@ -75,6 +79,7 @@ export default {
             userLogged: {matchs: { nbMatchsBetted: 0 }},
 
             fixtures: [],
+            errorBetDetected: false,
             numberJourney: 38,
             journeySelected: null,
             usersArray: [],
@@ -281,10 +286,27 @@ export default {
     .matchDayFilter{
         margin-bottom: 20px;
     }
+    .alert{
+        display: none;
+        position: fixed;
+        max-width: 500px;
+        margin: 10px auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        text-align: left;
+    }
+    .error{
+        display: flex;
+    }
     @media (max-width: 991px) {
         .header-btns{
             margin-top: 20px;
             text-align: center !important;
-        }   
+        } 
+        .alert{
+            width: 100%;
+        }  
     }
 </style>
