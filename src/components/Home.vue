@@ -53,7 +53,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <transition-group tag="div" name="list" class="fixtures">
-                        <my-fixture v-bind:errorBet.sync="errorBetDetected" v-bind:user="userLogged" v-bind:userId="userId" v-bind:value="p" v-bind:index="i" v-bind:key="i" v-for="(p, i) in fixtures"></my-fixture>
+                        <my-fixture  v-bind:errorBet.sync="errorBetDetected" v-bind:user="userLogged" v-bind:userId="userId" v-bind:value="p" v-bind:index="i" v-bind:key="i" v-bind:teamImage="teamImage" v-for="(p, i) in fixtures"></my-fixture>
                     </transition-group>
                 </div>
             </div>
@@ -84,7 +84,9 @@ export default {
             errorBetDetected: false,
             numberJourney: 38,
             journeySelected: null,
-            usersArray: []
+            usersArray: [],
+
+            teamImage: []
         };
     },
     computed: {
@@ -104,6 +106,26 @@ export default {
         }
     },
     methods: {
+        loadTeamImage: function () {
+            axios.get('https://thingproxy.freeboard.io/fetch/http://api.football-data.org/v1/competitions/445/teams', {
+                headers: {
+                    'X-Auth-Token': 'd2c960e664ad4668bb0236ca7442bf12'
+                }
+            })
+            .then((response) => {
+                response.data.teams.forEach(element => {
+                    let t = {
+                        'teamName': element.name,
+                        'imageUrl': element.crestUrl
+                    };
+
+                    this.teamImage.push(t);
+                });
+            })
+            .catch((error) => {
+                this.erreur = error;
+            });
+        },
         nextMatchday: function () {
             if (this.journeySelected < 38) {
                 this.journeySelected++;
@@ -124,8 +146,6 @@ export default {
             })
             .then((response) => {
                 this.journeySelected = response.data.currentMatchday;
-                console.log(response.data.currentMatchday);
-                console.log(this.journeySelected);
                 this.loadData();
             })
             .catch((error) => {
@@ -237,6 +257,7 @@ export default {
                 });
                 this.userPictureURL = user.photoURL;
                 this.currentJourney();
+                this.loadTeamImage();
                 this.$bindAsObject('userLogged', firebase.database().ref('users/' + this.userId + '/'));
             } else {
                 this.$router.push('/login');
