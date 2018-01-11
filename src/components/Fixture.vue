@@ -130,7 +130,7 @@ export default {
         max-width: 50px;
         margin-bottom: 20px;
     }
-     .matchs button {
+    .match button {
        min-width: 200px;
     }
     .exactBet{

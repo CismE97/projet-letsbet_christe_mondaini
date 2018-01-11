@@ -34,7 +34,7 @@ export default {
         };
     },
     computed: {
-        sortUsersArray() {                                              // A voir si on peut récupérer un bout de la méthode de summaryClassement
+        sortUsersArray() {
             let arraySorted = this.usersArray.sort(function (a, b) {
                 if (a.nbPoints < b.nbPoints) {
                     return -1;

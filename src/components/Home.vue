@@ -38,16 +38,16 @@
                     </div>
                 </div>
                 <div class="row matchDayFilter">
-                    <div class="col-4">
-                        <button value="button" class="btn btn-outline-info btn-lg" v-on:click='previousMatchday'>Précédent</button>
+                    <div class="col-12 col-md-3">
+                        <button value="button" class="btn btn-outline-info btn-lg btn-block" v-on:click='previousMatchday'>Précédent</button>
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 col-md-6">
                         <select class="form-control form-control-lg" v-model="journeySelected" @change="loadData">
                             <option v-bind:value="p" v-bind:key="i" v-for="(p,i) in numberJourney">Journée {{p}}</option>
                         </select>
                     </div>
-                    <div class="col-4">
-                        <button value="button" class="btn btn-outline-info btn-lg" v-on:click='nextMatchday'>Suivant</button>
+                    <div class="col-12 col-md-3">
+                        <button value="button" class="btn btn-outline-info btn-lg btn-block" v-on:click='nextMatchday'>Suivant</button>
                     </div>
                 </div>
 

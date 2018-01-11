@@ -24,13 +24,13 @@ export default {
   margin-top: 60px;
 }
 .btn.btn-outline-info, .btn.btn-outline-info:hover,.btn.btn-outline-info:focus {
-  color:var(--secondary-color);
-  border-color: var(--secondary-color);
+  color:var(--secondary-color) !important;
+  border-color: var(--secondary-color) !important;
 }
 .btn-outline-info:not([disabled]):not(.disabled):active{
-  background-color: var(--secondary-color);
-  color:white;
-  border-color: var(--secondary-color);
+  background-color: var(--secondary-color) !important;
+  color:white !important;
+  border-color: var(--secondary-color) !important;
 }
 
 html{
