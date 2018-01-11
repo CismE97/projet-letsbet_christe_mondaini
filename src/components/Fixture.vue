@@ -77,7 +77,7 @@ export default {
             }
         },
         addUserBet: function (scoreHome, scoreAway, matchId) {
-            if (scoreHome >= 0 && scoreAway >= 0) {
+            if ((scoreHome >= 0 && scoreAway >= 0) && (scoreHome !== null && scoreAway !== null)) {
                 firebase.database().ref('users/' + this.userId + '/matchs/' + matchId).set({
                     homeTeamScoreBetted: parseInt(scoreHome),
                     awayTeamScoreBetted: parseInt(scoreAway),
@@ -131,7 +131,7 @@ export default {
        min-width: 200px;
     }
     .exactBet{
-        background-color: var(--primary-color);
+        background-color: var(--primary-color) !important;
     }
     .lostBet{
         background-color: var(--secondary-color);
