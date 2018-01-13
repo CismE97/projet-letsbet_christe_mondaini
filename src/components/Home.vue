@@ -272,6 +272,13 @@ export default {
             }
         });
     },
+    updated() {
+        firebase.auth().onAuthStateChanged((user) => {
+            firebase.database().ref('users/' + this.userId).update({
+                userName: user.displayName
+            });
+        });
+    },
     components: {
         'my-fixture': Fixture,
         'my-SummaryClassement': SummaryClassement,
