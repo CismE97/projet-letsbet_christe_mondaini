@@ -187,50 +187,58 @@ export default {
                     matchsNotValidate.push(userMatchsToValidate);
                 }
             });
-            // ----- Vérification des score des matchs et attribution des points -----
-            matchsNotValidate.forEach(user => {
-                let userId = user.userId;
-                for (let index in user.matchs) {
-                    let matchId = user.matchs[index].matchId;
-                    let matchToCheck = null;
-                    axios.get('https://thingproxy.freeboard.io/fetch/http://api.football-data.org/v1/fixtures/' + matchId, {
-                        headers: {
-                            'X-Auth-Token': 'd2c960e664ad4668bb0236ca7442bf12'
-                        }
-                    })
-                    .then((response) => {
-                        matchToCheck = response.data.fixture;
-                        if (matchToCheck.status === 'FINISHED') {
-                            let pointsToAdd = 0;
-                            let nbExactResult = 0;
-                            if ((matchToCheck.result.goalsHomeTeam === user.matchs[index].homeTeamScoreBetted) && (matchToCheck.result.goalsAwayTeam === user.matchs[index].awayTeamScoreBetted)) {
-                                pointsToAdd = 100;
-                                nbExactResult += 1;
-                            } else {
-                                let substractBD = user.matchs[index].homeTeamScoreBetted - user.matchs[index].awayTeamScoreBetted;
-                                let substractAPI = matchToCheck.result.goalsHomeTeam - matchToCheck.result.goalsAwayTeam;
-                                if ((substractBD > 0 && substractAPI > 0) || (substractBD === 0 && substractAPI === 0) || (substractBD < 0 && substractAPI < 0)) {
-                                    pointsToAdd = 30;
+            // Récupération de tous les matchs depuis l'API
+            let APIAllFixtures = [];
+            axios.get('https://api.football-data.org/v1/competitions/445/fixtures', {
+                headers: {
+                    'X-Auth-Token': 'd2c960e664ad4668bb0236ca7442bf12'
+                }
+            })
+            .then((response) => {
+                APIAllFixtures = response.data.fixtures;
+                let link = null;
+                let APImatchID = null;
+                APIAllFixtures.forEach(APImatch => {
+                    link = APImatch._links.self.href;
+                    APImatchID = link.slice(link.lastIndexOf('/') + 1, link.length);
+                    if (APImatch.status === 'FINISHED') {
+                        matchsNotValidate.forEach(matchNotValidate => {
+                            let userId = matchNotValidate.userId;
+                            for (let index in matchNotValidate.matchs) {
+                                let matchId = matchNotValidate.matchs[index].matchId;
+                                if (matchId === APImatchID) {
+                                    let pointsToAdd = 0;
+                                    let nbExactResult = 0;
+                                    if ((APImatch.result.goalsHomeTeam === matchNotValidate.matchs[index].homeTeamScoreBetted) && (APImatch.result.goalsAwayTeam === matchNotValidate.matchs[index].awayTeamScoreBetted)) {
+                                        pointsToAdd = 100;
+                                        nbExactResult += 1;
+                                    } else {
+                                        let substractBD = matchNotValidate.matchs[index].homeTeamScoreBetted - matchNotValidate.matchs[index].awayTeamScoreBetted;
+                                        let substractAPI = APImatch.result.goalsHomeTeam - APImatch.result.goalsAwayTeam;
+                                        if ((substractBD > 0 && substractAPI > 0) || (substractBD === 0 && substractAPI === 0) || (substractBD < 0 && substractAPI < 0)) {
+                                            pointsToAdd = 30;
+                                        }
+                                    }
+                                    // Augmentation du nombre de points
+                                    if (pointsToAdd > 0) {
+                                        matchNotValidate.nbPoints += pointsToAdd;
+                                        matchNotValidate.nbResultsFounded += nbExactResult;
+                                        firebase.database().ref('users/' + userId).update({
+                                            nbPoints: parseInt(matchNotValidate.nbPoints),
+                                            nbResultsFounded: parseInt(matchNotValidate.nbResultsFounded)
+                                        });
+                                    }
+                                    firebase.database().ref('users/' + userId + '/matchs/' + matchId).update({
+                                        status: 'validated'
+                                    });
                                 }
                             }
-                            // Augmentation du nombre de points
-                            if (pointsToAdd > 0) {
-                                user.nbPoints += pointsToAdd;
-                                user.nbResultsFounded += nbExactResult;
-                                firebase.database().ref('users/' + userId).update({
-                                    nbPoints: parseInt(user.nbPoints),
-                                    nbResultsFounded: parseInt(user.nbResultsFounded)
-                                });
-                            }
-                            firebase.database().ref('users/' + userId + '/matchs/' + matchId).update({
-                                status: 'validated'
-                            });
-                        }
-                    })
-                    .catch((error) => {
-                        this.erreur = error;
-                    });
-                }
+                        });
+                    }
+                });
+            })
+            .catch((error) => {
+                this.erreur = error;
             });
         },
         loadData: function () {
