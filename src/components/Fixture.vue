@@ -71,7 +71,8 @@ export default {
             let index = 0;
             while (index < 20) {
                 if (this.teamImage[index].teamName === teamName) {
-                    document.getElementById(teamName).src = 'https://thingproxy.freeboard.io/fetch/' + this.teamImage[index].imageUrl;
+                    let urlIMG = this.teamImage[index].imageUrl.replace('http://', 'https://');
+                    document.getElementById(teamName).src = urlIMG;
                 }
                 index++;
             }
