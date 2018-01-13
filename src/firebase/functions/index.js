@@ -9,7 +9,7 @@ exports.createUserAccount = functions.auth.user().onCreate(event => {
     const displayName = '';
     const newUserRef = ref.child(`/users/${uid}`);
     return newUserRef.set({
-        nbPoints: 50,
+        nbPoints: 0,
         nbResultsFounded: 0,
         userName: displayName,
         matchs: {
