@@ -4,7 +4,7 @@ LetsBet est une application web développée par Mondaini Alessandro et Christe 
 dans le cadre du cours " Projet de Technologies Web de présentation " de la Haute Ecole de Gestion de Neuchâtel, donné part M.Fritcher.
 
 ## Description
-LetsBet est une application web de paris sportifs. Les utilisateurs peuvent se connecter à l'aide de leur compte Google ou alors en créant un compte classique (e-mail). Une fois l'utilisateur a accès à une liste de match dont il peut deviner le score. Suivant le résutat du match l'utilisateur se verra un nombre de points attribué. Le but du joueur est d'engrenger le maximum de point pour figuer le plus haut possible dans le classement. Le site est disponible [ici](https://heg-web.github.io/projet-letsbet_christe_mondaini/#/login). 
+LetsBet est une application web de paris sportifs. Les utilisateurs peuvent se connecter à l'aide de leur compte Google ou alors en créant un compte classique (e-mail). Une fois connecté, l'utilisateur a accès à une liste de match dont il peut deviner le score. Suivant le résutat du match, l'utilisateur se verra attribuer un nombre de points. Le but du joueur est d'engrenger le maximum de point pour figurer le plus haut possible dans le classement. Le site est disponible [ici](https://heg-web.github.io/projet-letsbet_christe_mondaini/#/login). 
 
 ## Outils utilisés
 1. VueJS
@@ -34,9 +34,7 @@ Objectif secondaire
 - Evaluation résultats automatique 
 - Ajout d'une page avec les détails du compte utilisateur.
 
-2. Réalisation d'une maquette de l'interface principal maquette (le fichier pencil est disponible [ici](https://github.com/heg-web/projet-letsbet_christe_mondaini/tree/master/doc/)) : 
-![Maquette](https://raw.githubusercontent.com/heg-web/projet-letsbet_christe_mondaini/master/doc/Home-maquette.PNG)
-
+2. Réalisation d'une maquette de l'interface principal (maquette disponible ici). 
 3. Développement
 4. Mise en production
 5. Documentation
@@ -49,21 +47,22 @@ Durant le développement, nous avons rencontrés les problèmes suivants :
 
 1. Premièrement, nous avons eu un peu de peine à se familiariser avec l'environnement de VueJs. A force d'entrainement, nous avons petit à petit pu développer plus rapidement.
 
-2. Puis, nous avons eu de la peine avec l'ordre de chargement des éléments des composants. Par exemple les données de sources exerterne (firebase ou API) se se chargent plus tard que la page en elle même ce qui provoquait des erreurs (variables null) nous avons solutionné ce problème à l'aide des promises.   
+2. Puis, nous avons eu de la peine avec l'ordre de chargement des éléments des composants. Par exemple les données de sources exerterne (firebase ou API) se se chargent plus tard que la page en elle même ce qui provoquait des erreurs (variables null) nous avons solutionné ce problème à l'aide des promises.
+
+3. Pour finir, lors de la vérification des scores nous faisions un appel de l'API à chaque score à vérifier. Cela fonctionnait correctement quand nous avions peu de scores à vérifer. Lors d'un test de plus grande ampleur, l'API bloquait une parties des requêtes. Nous avons dû modifier notre algorithme pour accéder qu'une seule fois à l'API.   
 
 ## Conclusion
-## Améliorations possibles
-Nous avons pu implémenter tous les objectifs principaux pour avoir une application fonctionnelle. Mais malheureusement, nous n'avons pas pu implémenter l'entièreté des secondaires. Au fil du projet, nous avons également pensé a quelques améliorations supplémentaires qui seraient intéressantes. Voici une liste non-exhaustives des améliorations qui seraient intéressantes à réaliser : 
+### Améliorations possibles
+Nous avons pu implémenter tous les objectifs principaux pour avoir une application fonctionnelle. Mais malheureusement, nous n'avons pas pu implémenter l'entièreté des objectifs secondaires. Au fil du projet, nous avons également pensé a quelques améliorations supplémentaires qui seraient intéressantes. Voici une liste non-exhaustives des améliorations qui seraient intéressantes à réaliser : 
 
-- Evaluation résultats automatique 
-- Ajout d'une page avec les détails du compte utilisateur.
+- Evaluation résultats automatique (exemple tous les jours à minuit)
+- Ajout d'une page avec les détails du compte utilisateur. (modification de l'image, pseudo, etc.)
 - Ajout de la possibilité de parier sur d'autres championnat. 
 - Ajout de catégories pour pouvoir ajouter d'autres sports. 
 - ...
 
 ### Retour d'expérience
-Dans l'ensemble, notre projet c'est plutôt bien déroulé tant sur le plan organisationnel au sein de notre groupe tant sur la partie de développement. Ce projet nous a été très bénéfique. Il nous a permis de consolider nos connaissances acquises par le passé en Javascript et nous faire découvrir VueJS que nous ne n'avions jamais utilisé auparavant. 
-
+Dans l'ensemble, notre projet c'est plutôt bien déroulé tant sur le plan organisationnel tant sur la partie de développement. Ce projet nous a été très bénéfique. Il nous a permis de consolider nos connaissances acquises par le passé en Javascript et nous faire découvrir VueJS que nous ne n'avions jamais utilisé auparavant. 
 
 ## Installation du projet
 1. Clonage du projet git : ```git clone https://github.com/heg-web/projet-letsbet_christe_mondaini.git```
