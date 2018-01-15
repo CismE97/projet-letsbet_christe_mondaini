@@ -34,7 +34,10 @@ Objectif secondaire
 - Evaluation résultats automatique 
 - Ajout d'une page avec les détails du compte utilisateur.
 
-2. Réalisation d'une maquette de l'interface principal (maquette disponible ici). 
+2. Réalisation d'une maquette de l'interface principal maquette (le fichier pencil est disponible [ici](https://github.com/heg-web/projet-letsbet_christe_mondaini/tree/master/doc/)) :
+
+![Maquette](https://raw.githubusercontent.com/heg-web/projet-letsbet_christe_mondaini/master/doc/Home-maquette.PNG)
+ 
 3. Développement
 4. Mise en production
 5. Documentation
