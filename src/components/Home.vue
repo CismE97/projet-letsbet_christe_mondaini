@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-md-6 col-8 text-left">
                     <h2>{{userName}}</h2>
-                    <p>Points restants : {{userLogged.nbPoints}}<br>Nombre résultats exacts : {{userLogged.nbResultsFounded}}</p>
+                    <p>Points : {{userLogged.nbPoints}}<br>Nombre résultats exacts : {{userLogged.nbResultsFounded}}</p>
                 </div>
                 <div class="col-md-4 col-sm-12 header-btns text-right">
                     <p>

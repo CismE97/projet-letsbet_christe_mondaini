@@ -42,7 +42,7 @@ Objectif secondaire
 5. Documentation
 
 ## Structure de l'application
-// Ajouter des schémas (imbrications des composants + accès aux données). 
+![Architecture](https://raw.githubusercontent.com/heg-web/projet-letsbet_christe_mondaini/master/doc/architecture.PNG)
 
 ## Problèmes rencontrés et solutions
 Durant le développement, nous avons rencontrés les problèmes suivants : 

@@ -16,7 +16,7 @@ export default {
     name: 'Login',
     mounted() {
         var redirectURL = '';
-        if (process.env.NODE_ENV === 'production') {            // Rendre plus propre
+        if (process.env.NODE_ENV === 'production') {
             redirectURL = '/projet-letsbet_christe_mondaini/';
         } else {
             redirectURL = '/';
