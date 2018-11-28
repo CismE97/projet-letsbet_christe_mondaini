@@ -4,7 +4,7 @@ LetsBet est une application web développée par Mondaini Alessandro et Christe 
 dans le cadre du cours " Projet de Technologies Web de présentation " de la Haute Ecole de Gestion de Neuchâtel, donné par M.Fritscher.
 
 ## Description
-LetsBet est une application web de paris sportifs. Les utilisateurs peuvent se connecter à l'aide de leur compte Google ou alors en créant un compte classique (e-mail). Une fois connecté, l'utilisateur a accès à une liste de matchs dont il peut essayer de deviner le score. Selon le résutat du match, l'utilisateur se verra attribuer un nombre de points. S'il trouve le résultat exact il gagne 100 points, s'il trouve le résultat (1N2) il remporte 30 points sinon il n'obtient aucun point. Le but du joueur est d'engranger le maximum de points pour figurer le plus haut possible dans le classement. Le site est disponible [ici](https://heg-web.github.io/projet-letsbet_christe_mondaini/#/login). 
+LetsBet est une application web de paris sportifs. Les utilisateurs peuvent se connecter à l'aide de leur compte Google ou alors en créant un compte classique (e-mail). Une fois connecté, l'utilisateur a accès à une liste de matchs dont il peut essayer de deviner le score. Selon le résutat du match, l'utilisateur se verra attribuer un nombre de points. S'il trouve le résultat exact il gagne 100 points, s'il trouve le résultat (1N2) il remporte 30 points sinon il n'obtient aucun point. Le but du joueur est d'engranger le maximum de points pour figurer le plus haut possible dans le classement. Le site est disponible [ici](https://tchriste.github.io/projet-letsbet_christe_mondaini/). 
 
 ## Outils utilisés
 1. [VueJS](https://vuejs.org/)
@@ -34,16 +34,16 @@ Objectif secondaire
 - Validation automatique des résultats
 - Ajout d'une page avec les détails du compte utilisateur.
 
-2. Réalisation d'une maquette de l'interface principale maquette (le fichier Pencil est disponible [ici](https://github.com/heg-web/projet-letsbet_christe_mondaini/tree/master/doc/)) :
+2. Réalisation d'une maquette de l'interface principale maquette (le fichier Pencil est disponible [ici](https://github.com/TChriste/projet-letsbet_christe_mondaini/tree/master/doc/)) :
 
-![Maquette](https://raw.githubusercontent.com/heg-web/projet-letsbet_christe_mondaini/master/doc/Home-maquette.PNG)
+![Maquette](https://raw.githubusercontent.com/TChriste/projet-letsbet_christe_mondaini/master/doc/Home-maquette.PNG)
  
 3. Développement
 4. Mise en production
 5. Documentation
 
 ## Structure de l'application
-![Architecture](https://raw.githubusercontent.com/heg-web/projet-letsbet_christe_mondaini/master/doc/Architecture.PNG)
+![Architecture](https://raw.githubusercontent.com/TChriste/projet-letsbet_christe_mondaini/master/doc/Architecture.PNG)
 
 ## Problèmes rencontrés et solutions
 Durant le développement, nous avons rencontré les problèmes suivants : 
